@@ -2,7 +2,7 @@ var Constants = (function(Constants, $, undefined) {
 
   Constants.isTestnet = false;
 
-  var mainnetUSDXId = '12982485703607823902';
+  var mainnetUSDXId = '12723610184347724870';
   var testnetUSDXId = '9429933812817993614';
   Constants.USDXId = mainnetUSDXId;
 

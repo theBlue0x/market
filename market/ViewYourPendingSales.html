@@ -14,11 +14,9 @@
   <link href="css/spinner.css" rel="stylesheet">
 </head>
 <script>
-// Redirect the user if the user is not already logged in
 function checkLogin() {
   var loginStatus = sessionStorage.getItem("loginStatus");
   if (loginStatus == 'notloggedin') {
-    localStorage.setItem("lastpage", "ViewYourPendingSales.html"); // set the page for the Continue button on Login Notice page
     var fmlang = localStorage.getItem("fmlang");
     window.location.href = 'login.html' + '?setLng=' + fmlang;
   }};
@@ -42,10 +40,10 @@ function checkLogin() {
                       <thead>
                         <tr>
                           <th><span data-i18n="item_id">Item ID</span></th>
-                          <th><span data-i18n="item_title">Title</span></th>
-                          <th class="hidden-phone"><span data-i18n="price">Price</span></th>
+                          <th><span data-i18n="item_title">Item Title</span></th>
                         </tr>
                       </thead>
+                      <tbody id="table_body"></tbody>
                     </table>
                   </div>
                 </div>
@@ -59,13 +57,32 @@ function checkLogin() {
     <script src="js/bootstrap.min.js"></script>
     <script src="js/jquery.dcjqaccordion.2.7.min.js"></script>
     <script src="js/bootstrap-hover-dropdown.min.js"></script>
-    <script src="js/respond.min.js"></script>
-    <script src="js/moment.min.js"></script>
     <script src="js/constants.js"></script>
     <script src="js/freemarket_scripts.js"></script>
     <script src="js/common-scripts.js"></script>
     <script src="js/i18next.min.js"></script>
     <script src="js/freemarket_localization_scripts.js"></script>
+    <script>
+    var user = sessionStorage.getItem("accountRS");
+    var fmlang = localStorage.getItem("fmlang");
+    $.getJSON(Constants.apiUrl, {
+      requestType: "getDGSPendingPurchases", 
+      seller: user
+    }, 
+      function(request) {
+      for (var i = 0; i < request.purchases.length ; i++) {
+      var pending = request.purchases[i];
+      var purchaseID = request.purchases[i].purchase
+      var id = request.purchases[i].goods;
+      var rows;
+      rows += '<tr>';
+      rows += '<td><a href=\'ViewYourItemPending.html?setLng=' + fmlang + '&itemid=' + id + '&purchaseid=' + purchaseID + '\'>' + id + '</a></td>';
+      rows += '<td><a href=\'ViewYourItemPending.html?setLng=' + fmlang + '&itemid=' + id + '&purchaseid=' + purchaseID + '\'>' + escapeHtml(pending.name) + '</a></td>';
+      rows += '</tr>';
+    };
+    $("#table_body").html(rows);
+    });
+</script>
     <script>
     function searchTable() {
         var input, filter, found, table, tr, td, i, j;

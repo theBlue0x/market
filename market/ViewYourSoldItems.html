@@ -70,9 +70,9 @@ function checkLogin() {
     <script src="js/common-scripts.js"></script>
     <script src="js/i18next.min.js"></script>
     <script src="js/freemarket_localization_scripts.js"></script>
-    <script src="js/pending_sales_notice.js"></script>
     <script>
     var user = sessionStorage.getItem("accountRS");
+    var fmlang = localStorage.getItem("fmlang");
     $.getJSON(Constants.apiUrl, {
       requestType: "getDGSPurchases", 
       seller: user,
@@ -81,7 +81,6 @@ function checkLogin() {
       function(request) {
       for (var i = 0; i < request.purchases.length ; i++) {
       var purchases = request.purchases[i];
-      console.log(purchases);
       var id = request.purchases[i].goods;
       var buyer = request.purchases[i].sellerRS;
       var rows;

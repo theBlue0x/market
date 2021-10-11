@@ -14,7 +14,6 @@
   <link href="css/spinner.css" rel="stylesheet">
 </head>
 <script>
-// Redirect the user if the user is not already logged in
 function checkLogin() {
   var loginStatus = sessionStorage.getItem("loginStatus");
   if (loginStatus == 'notloggedin') {
@@ -31,7 +30,7 @@ function checkLogin() {
           <div class="col-lg-12">
             <section class="panel">
               <header class="panel-heading">
-                <span data-i18n="header_all_your_expired_items">All Your Expired Items</span>
+                <span data-i18n="header_all_your_expired_items">Your Expired Items</span>
               </header>
               <div class="panel-body">
                 <div id="error-message">
@@ -41,9 +40,10 @@ function checkLogin() {
                       <thead>
                         <tr>
                           <th><span data-i18n="item_id">Item ID</span></th>
-                          <th><span data-i18n="item_title">Title</span></th>
+                          <th><span data-i18n="item_title">Item Title</span></th>
                         </tr>
                       </thead>
+                      <tbody id="table_body"></tbody>
                     </table>
                   </div>
                 </div>
@@ -53,17 +53,38 @@ function checkLogin() {
         </div>
       </section>
     </section>
-  <script src="js/jquery.min.js"></script>
-  <script src="js/bootstrap.min.js"></script>
-  <script src="js/jquery.dcjqaccordion.2.7.min.js"></script>
-  <script src="js/bootstrap-hover-dropdown.min.js"></script>
-  <script src="js/constants.js"></script>
-  <script src="js/freemarket_scripts.js"></script>
-  <script src="js/common-scripts.js"></script>
-  <script src="js/i18next.min.js"></script>
-  <script src="js/freemarket_localization_scripts.js"></script>
-  <script src="js/pending_sales_notice.js"></script>
-  <script>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.dcjqaccordion.2.7.min.js"></script>
+    <script src="js/bootstrap-hover-dropdown.min.js"></script>
+    <script src="js/constants.js"></script>
+    <script src="js/freemarket_scripts.js"></script>
+    <script src="js/common-scripts.js"></script>
+    <script src="js/i18next.min.js"></script>
+    <script src="js/freemarket_localization_scripts.js"></script>
+    <script>
+    var user = sessionStorage.getItem("accountRS");
+    var fmlang = localStorage.getItem("fmlang");
+    $.getJSON(Constants.apiUrl, {
+      requestType: "getDGSExpiredPurchases", 
+      seller: user
+    }, 
+      function(request) {
+        console.log(request);
+      for (var i = 0; i < request.purchases.length ; i++) {
+      var pending = request.purchases[i];
+      var purchaseID = request.purchases[i].purchase
+      var id = request.purchases[i].goods;
+      var rows;
+      rows += '<tr>';
+      rows += '<td><a href=\'ViewYourItemExpired.html?setLng=' + fmlang + '&itemid=' + id + '&purchaseid=' + purchaseID + '\'>' + id + '</a></td>';
+      rows += '<td><a href=\'ViewYourItemExpired.html?setLng=' + fmlang + '&itemid=' + id + '&purchaseid=' + purchaseID + '\'>' + escapeHtml(pending.name) + '</a></td>';
+      rows += '</tr>';
+    };
+    $("#table_body").html(rows);
+    });
+</script>
+    <script>
     function searchTable() {
         var input, filter, found, table, tr, td, i, j;
         input = document.getElementById("searchInput");
@@ -81,7 +102,7 @@ function checkLogin() {
                 found = false;
             } else {
                 tr[i].style.display = "none";
-            }}};
+            }}}
     </script>
 </body>
 </html>
