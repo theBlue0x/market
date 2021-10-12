@@ -13,21 +13,17 @@
   <link href="css/style-responsive.css" rel="stylesheet" />
   <script>
   function setButtonText() {
-    // Translate the button text
     var translatedLoginButtonText = $.t("button_login");
     document.getElementById("loginButtonText").innerHTML = translatedLoginButtonText;
   };
   </script>
   <script>
   function login() {
-    // Get the account number
     var Account = document.getElementById('user_entered_account_number').value;
     if (!Account) { // Form validation
       document.getElementById("user_entered_account_numberErrorMessage").innerHTML = "<p>Account Number Required</p>";
     } else {
-      // Set the RS account number as a variable
       var currentRSAccountNumber =$('#user_entered_account_number').val();
-      // POST the request
       $.post(Constants.apiUrl, {
         requestType: 'getAccount',
         account: $('#user_entered_account_number').val(),
@@ -38,11 +34,9 @@
           if (result.errorDescription == 'Unknown account') { // If this is not a valid account number
             document.getElementById("user_entered_account_numberErrorMessage").innerHTML = "<p class=\"validation_message\">New or invalid BLX account.  New BLX accounts must first make an outgoing transaction from the Blue0x wallet.</p>";
             } else {
-            // Store the account number and balance
             sessionStorage.setItem("accountRS", result.accountRS);
             sessionStorage.setItem("accountBalance", result.effectiveBalanceNXT);
             console.log('BLX Balance is ' + result.effectiveBalanceNXT)
-            // Display the logged in account number and balance and remove the Log In button
             var replace_loginResult = '';
             replace_loginResult += '<div class="media-body">';
             replace_loginResult += '<p>You have logged in with the following account:</p>';
@@ -56,18 +50,14 @@
             document.getElementById("loginResult").innerHTML = replace_loginResult;
           }
         }, "json");
-      // Get USDX balance for this account and display it
       $.post(Constants.apiUrl, {
         requestType: 'getAccountCurrencies',
         account: currentRSAccountNumber,
+        currency: Constants.USDXId
       },
       function(coinquery) {
-        console.log(coinquery)
-        if (coinquery.accountCurrencies.length == 0) {
-            // If this account does not have any USDX
-            console.log('There is no USDX associated with this account.');
+        if (coinquery.length == 0) {
             sessionStorage.setItem("USDXAccountBalance", "0 USDX");
-            // Display the USDX balance as zero
             var replace_USDXAccountBalance = '';
             replace_USDXAccountBalance += '<div class="media-body">';
             replace_USDXAccountBalance += '<a class="p-head">USDX Balance</a>';
@@ -77,12 +67,9 @@
             replace_USDXAccountBalance += '<a class="btn btn-default" href="account_details.html" role="button">View Account</a>&nbsp;&nbsp;<a class="btn btn-default" href="ListNewItem.html" role="button">List New Item</a>';
             document.getElementById("USDXAccountBalance").innerHTML = replace_USDXAccountBalance;
           } else {
-            console.log("USDX Balance is " + coinquery.units);
             var USDXAccountBalance = coinquery.units;
             sessionStorage.setItem("USDXAccountBalance", coinquery.units);
-            // Convert it to decimal notation
             var convertedUSDXAccountBalance = USDXAccountBalance / 100;
-            // Display the USDX balance
             var replace_USDXAccountBalance = '';
             replace_USDXAccountBalance += '<div class="media-body">';
             replace_USDXAccountBalance += '<a class="p-head">USDX Balance</a>';
@@ -97,9 +84,7 @@
 </script>
 <script>
   function loadAccountInfo() {
-    // If account number already set, redirect to Change Account Info page
     if (sessionStorage.getItem("loginStatus") == "loggedin") {
-      // Redirect to Change Account page
       var fmlang = localStorage.getItem("fmlang");
       window.location.href = "account_details.html?setLng=" + fmlang;
     }};

@@ -62,16 +62,6 @@
         var location = data.l;
         getCityName(location);
         document.getElementById("description").innerHTML = escapeHtml(message.d);
-        if (message.s != "") {
-        document.getElementById("shipping").innerHTML = escapeHtml(message.s);
-        } else {
-        document.getElementById("shipping").innerHTML = "Local Pickup Only";
-        }
-        if (message.sp != ""){
-        document.getElementById("shipping_price").innerHTML = escapeHtml(message.sp)+' '+escapeHtml(displayCurrency);
-        } else {
-        document.getElementById("shipping_price").innerHTML = "N/A";
-        }
         if (message.i != "") {
           main_image_url = "Yes";
         }
@@ -596,8 +586,6 @@
                           <p><b> <span data-i18n="description">Description</span>:</b> <span id="description"></span></p></b>
                           <p><b> <span data-i18n="price">Price</span>:</b> <span id="price"></span></p>
                           <p><b> <span data-i18n="location">Location</span>:</b> <span id="location"></span></p>
-                          <p><b> <span data-i18n="shipping_method">Shipping Method</span>:</b> <span id="shipping"></span></p>
-                          <p><b> <span>Shipping Cost</span>:</b> <span id="shipping_price"></span></p>
                           </div>
                           <div class="user-heading alt" id="extra_images_section"></div>
                           </div>

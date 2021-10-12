@@ -13,14 +13,11 @@
   <link href="css/style-responsive.css" rel="stylesheet" />
   <script>
     function setButtonText() {
-    // Set button text on page load
-    // Translate the button text
     var translatedLogoutButtonText = $.t("button_log_out");
     document.getElementById("logoutButtonText").innerHTML = translatedLogoutButtonText;
   };
 </script>
 <script>
-// Redirect the user if the user is not already logged in
 function checkLogin() {
   var loginStatus = sessionStorage.getItem("loginStatus");
   if (loginStatus == 'notloggedin') {
@@ -31,17 +28,12 @@ function checkLogin() {
 <script>
   function logoutFromChangeAccountPage() {
     if (typeof(Storage) != "undefined") {
-      // Disable the button while NxtPass does its work
       document.getElementById("logoutButtonSection").innerHTML = "<button type=\"button\" id=\"logoutButton\" class=\"btn btn-danger\"><i class=\"fa fa-refresh fa-spin\"></i> &nbsp;Processing...</button>";
-      // Clear session storage of all data
       sessionStorage.removeItem("accountNumber");
       sessionStorage.removeItem("accountRS");
       sessionStorage.removeItem("numericalAccountNumber");
-      sessionStorage.removeItem("uselessInformation");
       sessionStorage.removeItem("accountBalance");
-      // Mark user as now logged out
       sessionStorage.setItem("loginStatus", "notloggedin");
-      // Get user language for the redirect
       var fmlang = localStorage.getItem("fmlang");
       window.location.assign("login.html?setLng=" + fmlang);
     } else {
@@ -66,15 +58,14 @@ function checkLogin() {
 
     $.post(Constants.apiUrl, {
       requestType: 'getAccountCurrencies',
-      account: currentRSAccountNumber
+      account: currentRSAccountNumber,
+      currency: Constants.USDXId
     },
     function(coinquery) {
-      if (coinquery.accountCurrencies.length == 0) {
-          // If this account does not have any USDX
+      console.log(coinquery);
+      if (coinquery.length == 0) {
           console.log('There is no USDX associated with this account.');
-          // Display the USDX balance as zero
           document.getElementById("USDXAccountBalance").innerHTML = "0 USDX";
-          // Update the "My Account Tab" USDX balance
           document.getElementById("USDXbalance").innerHTML = 'Account Balance: <br /> 0 USDX';
         } else {
           console.log("USDX Balance is " + coinquery.units);

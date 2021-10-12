@@ -24,18 +24,7 @@
   function setCurrencyText(currency) {
     // Set currency text in price field
     document.getElementById("itemCurrencyText").innerHTML = currency;
-    // Then set currency text in shipping price fields
-    if (currency == "USDX") {
-      // Get the translation for the field contents now, because they can't be translated after replacement
-      var shippingPriceFieldText = $.t("shipping_cost_in_usdx");
-      // Now replace the shipping price fields
-      document.getElementById("shippingCostField1").innerHTML = '<input type="text" class="form-control" pattern="[0-9.]+" onblur="testFieldShippingPrice1(this);" id="shipping_cost_1" placeholder="' + shippingPriceFieldText + '">';
-    } else {
-      // Get the translation for the field contents now, because they can't be translated after replacement
-      var shippingPriceFieldText = $.t("shipping_cost_in_blx");
-      // Now replace the shipping price fields
-      document.getElementById("shippingCostField1").innerHTML = '<input type="text" class="form-control" pattern="[0-9.]+" onblur="testFieldShippingPrice1(this);" id="shipping_cost_1" placeholder="' + shippingPriceFieldText + '">';
-    }};
+    };
 </script>
 <script>
   // Sets the "Preview Image" link's URL
@@ -63,19 +52,6 @@
       document.getElementById("itemPriceErrorMessage").innerHTML = "<p class=\"validation_message\">The price may only contain numbers.</p>";
     } else {
       document.getElementById("itemPriceErrorMessage").innerHTML = "";
-    }};
-</script>
-<script>
-  // Check that price is only valid characters
-  function testFieldShippingPrice(field, num) {
-    var regExpr = new RegExp("^[0-9]+(\.[0-9]{1,10})?$");
-    if (!regExpr.test(field.value)) {
-      // Case of error
-      field.value = "";
-      var error_price = $.t("error_price");
-      document.getElementById("shippingPrice" + num + "ErrorMessage").innerHTML = "<p class=\"validation_message\">The price may only contain numbers.</p>";
-    } else {
-      document.getElementById("shippingPrice" + num + "ErrorMessage").innerHTML = "";
     }};
 </script>
 <script>
@@ -134,10 +110,6 @@
         i2: $('#additional_image_2_url').val(),
         i3: $('#additional_image_3_url').val(),
         i4: $('#additional_image_4_url').val(),
-        s: $('#shipping_method_1').val(),
-        sp: $('#shipping_cost_1').val(),
-        s1: $('#shipping_method_2').val(),
-        sp1: $('#shipping_cost_2').val()
       };
       $.post(Constants.apiUrl, {
         requestType: "dgsListing",
@@ -789,44 +761,6 @@ hr {
                     <a id="previewImageLink5" class="fancybox" rel="group" href="img/package.png">Preview Image</a>
                     <div id="previewImageErrorMessage5"></div>
                   </div>
-                  <label><span>Optional Shipping Method</span></label> <a href="#myModal2" data-toggle="modal" class="btn btn-xs btn-info"><i class="fa fa-question"></i></a>
-                  <form class="form-inline" role="form">
-                    <div class="form-group">
-                      <label class="sr-only" for="shipping_method_1">Shipping Method 1</label>
-                      <div class="iconic-input">
-                        <i class="fa fa-truck"></i>
-                        <input type="text" class="form-control" id="shipping_method_1" data-i18n="[placeholder]shipping_method_name" maxlength="43">
-                      </div>
-                    </div>
-                    <div class="form-group">
-                      <label class="sr-only" for="shipping_cost_1">Shipping Cost 1</label>
-                      <div class="iconic-input">
-                        <i class="fa fa-plus-circle"></i>
-                        <div id="shippingCostField1">
-                          <input type="text" class="form-control" pattern="[0-9.]+" onblur="testFieldShippingPrice(this, 1);" id="shipping_cost_1" data-i18n="[placeholder]shipping_cost_in_usdx">
-                        </div>
-                      </div>
-                    </div>
-                    <div class="form-group">
-                      <div id="shippingPrice1ErrorMessage"></div>
-                    </div>
-                  </form>
-                  <!--Shipping Help Modal-->
-                  <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal2" class="modal fade">
-                    <div class="modal-dialog">
-                      <div class="modal-content">
-                        <div class="modal-header">
-                          <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
-                          <h4 class="modal-title"><span data-i18n="shipping_help">Shipping Options Help</span></h4>
-                        </div>
-                        <div class="modal-body">
-                          <p><span>When listing an item on Blue0x Market, you may include a shipping option. However, you are responsible for payment of shipping services in fiat currency. (i.e. USD)  If you still plan to offer shipping for your item, please list the service you intend to use ("USPS" or "UPS") and a respective price in USDX.  Additionally, you will be required to provide a tracking number to finalize the sale.</span></p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <!--End Shipping Help Modal-->
-                  <br/>
                   <hr>
                   <div class="form-group">
                     <label for="secretPhrase"><span data-i18n="secret_phrase">Account Secret Phrase</span></label>
