@@ -20,14 +20,11 @@
   };
 </script>
 <script>
-  // Set currency text in price field and shipping cost fields
   function setCurrencyText(currency) {
-    // Set currency text in price field
     document.getElementById("itemCurrencyText").innerHTML = currency;
     };
 </script>
 <script>
-  // Sets the "Preview Image" link's URL
   function setPreviewImageURL(url, num) {
     var imageLink = url.value;
     var numstr = "";
@@ -42,7 +39,6 @@
     }};
 </script>
 <script>
-  // Check that price is only valid characters
   function testFieldPrice(field) {
     var regExpr = new RegExp("^[0-9]+(\.[0-9]{1,10})?$");
     if (!regExpr.test(field.value)) {
@@ -54,22 +50,43 @@
       document.getElementById("itemPriceErrorMessage").innerHTML = "";
     }};
 </script>
+<script >
+function docReady(fn) {
+    if (document.readyState === "complete" || document.readyState === "interactive") {
+        setTimeout(fn, 1);
+    } else {
+        document.addEventListener("DOMContentLoaded", fn);
+    }} 
+docReady(function() {
+    var lastResult, countResults = 0;
+    var html5QrcodeScanner = new Html5QrcodeScanner(
+        "qr-reader1", { fps: 10, qrbox: 250 });
+    function onScanSuccess(decodedText, decodedResult) {
+        if (decodedText !== lastResult) {
+            ++countResults;
+            lastResult = decodedText;
+            document.getElementById('secretPhrase').value = decodedText;
+            html5QrcodeScanner.clear();
+            setTimeout(function(){ $('#reader1').modal('hide'); }, 300);
+        }}
+    function onScanError(qrCodeError) {
+    }
+    html5QrcodeScanner.render(onScanSuccess, onScanError);
+});
+</script>
 <script>
   function postNewItem() {
-    // Set the currency variable
-    var itemCurrency = "BLX"; // Default currency
-    var currencyRadios = document.getElementsByName('item_currency'); // Get the currency radio buttons
+    var itemCurrency = "BLX"; 
+    var currencyRadios = document.getElementsByName('item_currency');
     for (var i = 0, length = currencyRadios.length; i < length; i++) {
       if (currencyRadios[i].checked) {
         var duration = currencyRadios[i].value;
-        if (duration == "BLX") { // BLX is selected
-          itemCurrency = "BLX"; // The currency is set to BLX
-        } else { // otherwise, USDX is selected
+        if (duration == "BLX") { 
+          itemCurrency = "BLX"; 
+        } else { 
           itemCurrency = "USDX";
         }}}
-    // Remove any previous error messages
     document.getElementById("listingResult").innerHTML = "";
-    // Set up the fields to check for completion before posting item
     var itemTitleCheck = document.getElementById("itemTitle").value;
     var itemPriceCheck = document.getElementById("itemPrice").value;
     var itemDescriptionCheck = document.getElementById("itemDescription").value;
@@ -94,9 +111,7 @@
       var translatedSecretPhraseErrorMessage = $.t("error_secret_phrase");
       document.getElementById("secretPhraseErrorMessage").innerHTML = "<p class=\"validation_message\">" + translatedSecretPhraseErrorMessage + "</p>";
     } else {
-      // Clear the error field next to the Post button   
       document.getElementById("listingResult").innerHTML = "";
-      // Disable the button while NxtPass does its work
       document.getElementById("postButtonSection").innerHTML = "<button type=\"button\" id=\"postButton\" class=\"btn btn-info\"><i class=\"fa fa-refresh fa-spin\"></i> &nbsp;Processing...</button>";
       var description = {
         p: $('#itemPrice').val(),
@@ -121,14 +136,13 @@
         messageIsText: "true",
         messageIsPrunable: "true",
         quantity: $('#quantitySell').val(),
-        feeNQT: 700000000,
+        feeNQT: 800000000,
         priceNQT: 100000000,
         deadline: 60  
       },
       function(result) {
         var errorCode = result.errorCode;
         if (!errorCode) {
-          console.log(result);
           var listingID = result.transaction;
           var fmlang = localStorage.getItem("fmlang");
           var success = $.t("success");
@@ -139,14 +153,12 @@
           } else { 
             var errorDescription = result.errorDescription;
             var errorCode = result.errorCode;
-              //Re-enable the Post item button so user can try again
               document.getElementById("postButtonSection").innerHTML = "<button type=\"button\" id=\"postButton\" class=\"btn btn-info\" onclick=\"postNewItem();\"><div id=\"postButtonText\"></div></button>";
               setButtonText();
-              // Display failure message
               var post_failure = $.t("post_failure");
               document.getElementById("listingResult").innerHTML = post_failure + "<b> " + errorDescription + "</b>";
             }
-        }, "json"); // Specifies JSON as the expected result
+        }, "json");
     }};
 </script>
 <style>
@@ -157,8 +169,7 @@ hr {
 </head>
 <body class="full-width" onload="setAccountNumber(); setLanguage(); setButtonText();">
   <section id="container">
-    <script type="text/javascript" src="js/menu.js">
-    </script>
+    <script type="text/javascript" src="js/menu.js"></script>
     <section id="main-content">
       <section class="wrapper">
         <div class="row">
@@ -239,7 +250,6 @@ hr {
               <label><span data-i18n="select_item_currency">Item Currency</span></label>
               <form class="form-horizontal tasi-form" role="form">
                 <div class="form-group">
-                  <!--Currencies added as radio btns -->
                   <div id="item_currency_section" style="margin-left:5px;">
                     <div class="input-group m-bot15">
                       <div class="col-lg-12">
@@ -764,12 +774,30 @@ hr {
                   <hr>
                   <div class="form-group">
                     <label for="secretPhrase"><span data-i18n="secret_phrase">Account Secret Phrase</span></label>
+                    <button type="button" class="btn btn-qr btn-xs" data-toggle="modal" data-target="#reader1">
+                    <i class="fa fa-qrcode"></i>
+                  </button>
                     <div class="iconic-input">
                       <i class="fa fa-key"></i>
                       <input type="password" class="form-control" id="secretPhrase" data-i18n="[placeholder]placeholder_required">
                       <div id="secretPhraseErrorMessage"></div>
                     </div>
                   </div>
+                  <div class="modal fade" style="top:10vh" id="reader1">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h4 class="modal-title">Scan Your Secret Phrase</h4>
+                      </div>
+                        <div class="modal-body" style="position: static">
+                         <div id="qr-reader1"></div>
+                        </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
+                      </div>
+                    </div> <!-- /.modal-content -->
+                  </div> <!-- /.modal-dialog -->
+                </div> <!-- /.modal -->
                   <span id="listingResult"></span>
                   <div id="postButtonSection">
                     <button type="button" id="postButton" class="btn btn-default" onclick="postNewItem();">
@@ -777,7 +805,7 @@ hr {
                     </button>
                   </div>
                   <br />
-                  <p>The network fee of this transaction is 20 BLX.</p>
+                  <p>The network fee of this transaction is 8 BLX.</p>
                 </div>
               </span>
             </div>
@@ -802,6 +830,6 @@ hr {
     <script src="js/common-scripts.js"></script>
     <script src="js/i18next.min.js"></script>
     <script src="js/freemarket_localization_scripts.js"></script>
-    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html5-qrcode/2.0.1/html5-qrcode.min.js"></script>
 </body>
 </html>

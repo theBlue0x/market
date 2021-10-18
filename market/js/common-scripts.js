@@ -8,15 +8,10 @@ $(function() {
     speed: 'slow',
     showCount: false,
     autoExpand: true,
-    //        cookie: 'dcjq-accordion-1',
     classExpand: 'dcjq-current-parent'
   });
 });
-
 var Script = function () {
-
-  //    sidebar dropdown menu auto scrolling
-
   jQuery('#sidebar .sub-menu > a').click(function () {
     var o = ($(this).offset());
     diff = 250 - o.top;
@@ -25,9 +20,6 @@ var Script = function () {
     else
       $("#sidebar").scrollTo("+="+Math.abs(diff),500);
   });
-
-  //    sidebar toggle
-
   $(function() {
     function responsiveView() {
       var wSize = $(window).width();
@@ -44,7 +36,6 @@ var Script = function () {
     $(window).on('load', responsiveView);
     $(window).on('resize', responsiveView);
   });
-
   $('.fa-bars').click(function () {
     if ($('#sidebar > ul').is(":visible") === true) {
       $('#main-content').css({
@@ -66,18 +57,8 @@ var Script = function () {
       $("#container").removeClass("sidebar-closed");
     }
   });
-
-
-  //    tool tips
-
   $('.tooltips').tooltip();
-
-  //    popovers
-
   $('.popovers').popover();
-
-  // custom bar chart
-
   if ($(".custom-bar-chart")) {
     $(".bar").each(function () {
       var i = $(this).find(".value").html();

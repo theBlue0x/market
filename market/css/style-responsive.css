@@ -1,5 +1,4 @@
 @media (min-width: 980px) {
-    /*-----*/
     .custom-bar-chart {
         margin-bottom: 40px;
     }}
@@ -13,66 +12,10 @@
     .mail-box .lg-side {
         width: 70%;
     }
-    /*-----*/
     .custom-bar-chart {
         margin-bottom: 40px;
     }
-
-    /*chat room*/
-
-    .chat-room aside {
-        display: block;
-    }
-    .chat-room .left-side, .chat-room .mid-side, .chat-room .right-side, .chat-room .left-side footer {
-        width: 100%;
-    }
-
-    .chat-room .left-side footer {
-        position: relative;
-    }
-
-    ul.chat-user {
-        margin-bottom: 20px;
-    }
-
-    .chat-room .left-side , .chat-room .mid-side{
-        margin-bottom: 10px;
-
-    }
-
-    .chat-room .left-side .user-head , .chat-room-head, .chat-room .right-side .user-head{
-        border-radius: 4px 4px 0 0;
-        -webit-border-radius: 4px 4px 0 0;
-    }
-    .chat-room .left-side footer {
-        border-radius: 0 0 4px 4px;
-        -webkit-border-radius: 0 0 4px 4px;
-    }
-    /**/
-    .chat-room .right-side .user-head {
-        float: left;
-        width: 100%;
-    }
-
-    .chat-room .mid-side footer {
-        position: relative;
-        float: left;
-        width: 100%;
-        border-right: 0;
-    }
-
-    .chat-txt {
-        width: 65%;
-    }
-
-    .chat-room .right-side footer {
-        width: 100%;
-        position: relative;
-    }
-
-    .chat-room .mid-side {
-        margin-bottom: 0!important;
-    }
+ 
 }
 
 @media (max-width: 768px) {
@@ -81,7 +24,6 @@
         position: absolute;
     }
 
-    /*sidebar*/
 
     #sidebar {
         height: auto;
@@ -92,7 +34,6 @@
     }
 
 
-    /* body container */
     #main-content {
         margin: 0px!important;
         position: none !important;
@@ -112,7 +53,6 @@
         text-align: left;
     }
     #sidebar > ul > li > a i{
-        /*display: none !important;*/
     }
 
     .mail-info, .mail-info:hover {
@@ -135,16 +75,13 @@
         background: transparent !important ;
     }
     #sidebar > ul > li > ul.sub > li > a:hover {
-        /*background: #4A8BC2 !important ;*/
     }
 
 
-    /* sidebar */
     #sidebar {
         margin: 0px !important;
     }
 
-    /* sidebar collabler */
     #sidebar .btn-navbar.collapsed .arrow {
         display: none;
     }
@@ -160,8 +97,6 @@
         border-right: 15px solid transparent;
     }
 
-
-    /*---------*/
 
     .modal-footer .btn {
         margin-bottom: 0px !important;
@@ -179,7 +114,6 @@
         width: 100% ;
     }
 
-    /* full calendar fix */
     .fc-header-right {
         left:25px;
         position: absolute;
@@ -264,11 +198,7 @@
         margin-bottom:0px !important;
     }
 
-    /*--*/
 
-    /*.chart-position {*/
-        /*margin-top: 0px;*/
-    /*}*/
 
     .timeline-desk .album a {
         margin-bottom: 5px;
@@ -287,7 +217,6 @@
         position:absolute;
     }
 
-    /*--horizontal menu--*/
     .full-width .navbar-toggle {
         border: 1px solid #eaeaea;
     }
@@ -312,12 +241,10 @@
         top: 0px;
     }
 
-    /*-----*/
     .custom-bar-chart {
         margin-bottom: 40px;
     }
 
-    /*menu icon plus minus*/
     .dcjq-icon {
         top: 10px;
     }
@@ -325,7 +252,6 @@
         padding: 0;
     }
 
-    /*---*/
 
     .img-responsive {
         width: 100%;
@@ -375,7 +301,6 @@
        margin-top: 0px;
      }
 
-    /*--horizontal menu--*/
     .full-width .navbar-toggle {
         border: 1px solid #eaeaea;
     }
@@ -419,64 +344,6 @@
         background-color: #ccc;
         border-color:#ccc ;
     }
-
-    /*chat room*/
-
-    .chat-room aside {
-        display: block;
-    }
-    .chat-room .left-side, .chat-room .mid-side, .chat-room .right-side, .chat-room .left-side footer {
-        width: 100%;
-    }
-
-    .chat-room .left-side footer {
-        position: relative;
-    }
-
-    ul.chat-user {
-        margin-bottom: 20px;
-    }
-
-    .chat-room .left-side , .chat-room .mid-side{
-        margin-bottom: 10px;
-
-    }
-
-    .chat-room .left-side .user-head , .chat-room-head, .chat-room .right-side .user-head{
-        border-radius: 4px 4px 0 0;
-        -webit-border-radius: 4px 4px 0 0;
-    }
-    .chat-room .left-side footer {
-        border-radius: 0 0 4px 4px;
-        -webkit-border-radius: 0 0 4px 4px;
-    }
-
-    /**/
-    .chat-room .right-side .user-head {
-        width: 100%;
-        float: left;
-    }
-
-    .chat-room .mid-side footer {
-        position: relative;
-        float: left;
-        width: 100%;
-        border-right: 0;
-    }
-
-    .chat-txt {
-        width: 65%;
-    }
-
-    .chat-room .right-side footer {
-        width: 100%;
-        position: relative;
-    }
-
-    .chat-room .mid-side {
-        margin-bottom: 0!important;
-    }
-}
 
 @media (max-width:320px) {
     .login-social-link a {
@@ -535,10 +402,6 @@
     .cmt-form {
         display: inline-block;
         width: 75%;
-    }
-
-    .chat-room .mid-side footer .btn-group {
-        display: none;
     }
 
     .stepy-titles li.current-step div, .stepy-titles li div {

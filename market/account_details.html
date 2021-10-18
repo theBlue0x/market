@@ -33,6 +33,10 @@ function checkLogin() {
       sessionStorage.removeItem("accountRS");
       sessionStorage.removeItem("numericalAccountNumber");
       sessionStorage.removeItem("accountBalance");
+      sessionStorage.removeItem("title");
+      sessionStorage.removeItem("price");
+      sessionStorage.removeItem("previous");
+      sessionStorage.removeItem("recipient");
       sessionStorage.setItem("loginStatus", "notloggedin");
       var fmlang = localStorage.getItem("fmlang");
       window.location.assign("login.html?setLng=" + fmlang);
@@ -50,7 +54,8 @@ function checkLogin() {
       includeEffectiveBalance: "true"
     },
     function(result) {
-        sessionStorage.setItem("accountBalance", result.effectiveBalanceNXT);
+      var balance = result.balanceNQT / 100000000;
+        sessionStorage.setItem("accountBalance", balance);
       }, "json"); 
     document.getElementById("RSaccount_number").innerHTML = currentRSAccountNumber;
     var currentAccountBalance = sessionStorage.getItem("accountBalance");
@@ -62,13 +67,11 @@ function checkLogin() {
       currency: Constants.USDXId
     },
     function(coinquery) {
-      console.log(coinquery);
-      if (coinquery.length == 0) {
-          console.log('There is no USDX associated with this account.');
+      if (coinquery == '{}') {
+          sessionStorage.setItem("USDXAccountBalance", "0 USDX");
           document.getElementById("USDXAccountBalance").innerHTML = "0 USDX";
           document.getElementById("USDXbalance").innerHTML = 'Account Balance: <br /> 0 USDX';
         } else {
-          console.log("USDX Balance is " + coinquery.units);
           var USDXAccountBalance = coinquery.units;
           sessionStorage.setItem("USDXAccountBalance", coinquery.units);
           var convertedUSDXAccountBalance = USDXAccountBalance / 100;
@@ -112,6 +115,8 @@ function checkLogin() {
                     <li><a class="dropdown-item" href="ViewYourExpiredItems.html">View Expired Items</a></li>
                   </div>
                 </div>
+                <br/>
+                <a type="button" id="messageButton" class="btn btn-default" href="ViewYourMessages.html">View Your Messages</a>
                 <hr>
                 <div id="logoutButtonSection">
                   <button type="button" id="logoutButton" class="btn btn-danger" onclick="logoutFromChangeAccountPage();">

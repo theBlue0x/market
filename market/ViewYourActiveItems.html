@@ -13,7 +13,6 @@
   <link href="css/style-responsive.css" rel="stylesheet" />
 </head>
 <script>
-// Redirect the user if the user is not already logged in
 function checkLogin() {
   var loginStatus = sessionStorage.getItem("loginStatus");
   if (loginStatus == 'notloggedin') {
@@ -29,8 +28,7 @@ function checkLogin() {
 </script>
 <body class="full-width" onload="checkLogin(); getAccount(); setAccountNumber(); setLanguage();">
   <section id="container">
-    <script type="text/javascript" src="js/menu.js">
-    </script>
+    <script type="text/javascript" src="js/menu.js"></script>
     <section id="main-content">
       <section class="wrapper site-min-height">
         <div class="row">
@@ -48,7 +46,6 @@ function checkLogin() {
                         <tr>
                           <th class="hidden-phone">ID</span></th>
                           <th><span data-i18n="item_title">Title</span></th>
-                          <th class="hidden-phone"><span data-i18n="description">Description</span></th>
                           <th><span data-i18n="price">Price</span></th>
                         </tr>
                       </thead>
@@ -71,9 +68,9 @@ function checkLogin() {
     <script src="js/common-scripts.js"></script>
     <script src="js/i18next.min.js"></script>
     <script src="js/freemarket_localization_scripts.js"></script>
-    
     <script>
     var user = sessionStorage.getItem("accountRS");
+    var fmlang = localStorage.getItem("fmlang");
     $.getJSON(Constants.apiUrl, {
       requestType: "getDGSGoods", 
       seller: user,
@@ -86,9 +83,8 @@ function checkLogin() {
       var id = request.goods[i].goods;
       var rows;
       rows += '<tr>';
-      rows += '<td class="hidden-phone">'+id+'</td>';
-      rows += '<td>'+escapeHtml(goods.name)+'</td>';
-      rows += '<td class="hidden-phone">'+escapeHtml(data.d)+'</td>';
+      rows += '<td class="hidden-phone"><a href=\'ViewYourItemSingle.html?setLng=' + fmlang + '&itemid=' + id + '\'>' +id+ '</a></td>';
+      rows += '<td><a href=\'ViewYourItemSingle.html?setLng=' + fmlang + '&itemid=' + id + '\'>' +escapeHtml(goods.name)+'</a></td>';
       rows += '<td>'+escapeHtml(data.p)+'&nbsp;'+escapeHtml(data.c)+'</td>';;
       rows += '</tr>';
     };

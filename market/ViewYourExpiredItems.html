@@ -70,7 +70,6 @@ function checkLogin() {
       seller: user
     }, 
       function(request) {
-        console.log(request);
       for (var i = 0; i < request.purchases.length ; i++) {
       var pending = request.purchases[i];
       var purchaseID = request.purchases[i].purchase

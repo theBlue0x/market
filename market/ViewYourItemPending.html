@@ -9,10 +9,9 @@
   <link href="css/bootstrap.min.css" rel="stylesheet">
   <link href="css/bootstrap-reset.css" rel="stylesheet">
   <link href="assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
-  <link href="css/style.css" rel="stylesheet">
+  <link href="css/style.min.css" rel="stylesheet">
   <link href="css/style-responsive.css" rel="stylesheet" />
   <link href="css/spinner.css" rel="stylesheet">
-  <!-- for image zooming -->
   <link href="assets/fancybox/jquery.fancybox.css" rel="stylesheet" />
   <link href="css/gallery.css" rel="stylesheet" />
   <script>
@@ -34,10 +33,10 @@
         document.getElementById("itemID").innerHTML = escapeHtml(id);
         document.getElementById("price").innerHTML = escapeHtml(displayPriceWithCurrency);
         // Set Seller ID and Price Units in session
+        sessionStorage.setItem("title", escapeHtml(request.name));
         sessionStorage.setItem("price", displayPrice);
         sessionStorage.setItem("seller", seller);
       }, "json"); 
-      // Get images and shipping info from message
       $.post(Constants.apiUrl, { 
         requestType: 'getTransaction',
         transaction: listingid
@@ -51,41 +50,22 @@
         var location = data.l;
         getCityName(location);
         document.getElementById("description").innerHTML = escapeHtml(message.d);
-        if (message.s != "") {
-        document.getElementById("shipping").innerHTML = escapeHtml(message.s);
-        } else {
-        document.getElementById("shipping").innerHTML = "Local Pickup Only";
-        }
-        if (message.sp != ""){
-        document.getElementById("shipping_price").innerHTML = escapeHtml(message.sp)+' '+escapeHtml(displayCurrency);
-        } else {
-        document.getElementById("shipping_price").innerHTML = "N/A";
-        }
         if (message.i != "") {
           main_image_url = "Yes";
         }
         if (main_image_url) {
-          // If there is a main_image_url, check it
-          // Clean the main image URL using validator.min.js
           if (validator.isURL(message.i)) {
-            // Field is a URL
-            // Now check to make sure the URL is for an image
             var Extension = message.i.substring(message.i.lastIndexOf('.') + 1).toLowerCase();
             if (Extension == "gif" || Extension == "png" || Extension == "jpeg" || Extension == "jpg") {
-              // Valid image extension
               var main_image_url = escapeHtml(message.i);
             } else {
-              // URL is not for an image file
               var main_image_url = "img/Box-icon.png";
             }
           } else {
-            // Field is not a valid URL
             var main_image_url = "img/Box-icon.png";
           }
-          // Add the image to the page
           document.getElementById("top_image").innerHTML = '<a id="previewMainImageLink" class="fancybox" rel="group" href="' + main_image_url + '"><img alt="" src="' + main_image_url + '"></a>';
-        } // End of if (main_image_url)
-        });
+        }});
         var cities = {   
         "aub":  " Auburn, Alabama ",
         "bhm":  " Birmingham, Alabama ",
@@ -489,12 +469,13 @@
                           <p><b> <span data-i18n="price">Price</span>:</b> <span id="price"></span></p>
                           <p><b> <span data-i18n="location">Location</span>:</b> <span id="location"></span></p>
                           </div>
+                        </div>
                       </section>
                     </aside>
                     <span id="listingResult"></span>
                     <span id="payment"></span>
                     <div id="purchaseButtonSection">
-                      <button class="btn btn-default"><span data-i18n="message_to_buyer">Message Buyer</span></button>
+                      <button class="btn btn-default" data-toggle="modal" data-target="#messageModal"><span data-i18n="message_to_buyer">Message Buyer</span></button>
                       <button class="btn btn-danger" data-toggle="modal" data-target="#myModal"><span data-i18n="button_finalize_purchase">Finalize Sale</span></button>
                     </div> 
                     <!-- Purchase Modal -->
@@ -508,7 +489,7 @@
                             <div class="modal-body">
                               <p><span>Enter your account secret phrase to finalize this sale.</span></p>
                               <div class="form-group">
-                              <label for="secret_phrase"><b><span data-i18n="account_number">BLX Account Number</span></b> :</label>
+                              <label for="secret_phrase"><b><span data-i18n="secret_phrase">Your Account Secret Phrase</span></b> :</label>
                               <div class="iconic-input">
                                 <i class="fa fa-bars"></i>
                                 <input type="password" class="form-control" data-i18n="[placeholder]placeholder_required" id="secret_phrase" autofocus>
@@ -517,11 +498,42 @@
                                 <button data-dismiss="modal" class="btn btn-secondary" type="button">Close</button>&nbsp;
                                 <button data-dismiss="modal" class="btn btn-default" type="button" onclick="finalize()"><span data-i18n="button_finalize_purchase">Finalize Sale</span></button>
                             </div>
+                            <p>The network fee of this transaction is 1 BLX.</p>
                             </div>
                           </div>
                         </div>
                       </div>
-                    <!--Modal-->
+                    <!--Purchase Modal-->
+                    <!-- Message Modal -->
+                    <div aria-hidden="true" aria-labelledby="messageModalLabel" role="dialog" tabindex="-1" id="messageModal" class="modal fade">
+                        <div class="modal-dialog">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+                              <h4 class="modal-title"><span data-i18n="message_to_buyer">Message Buyer</span></h4>
+                            </div>
+                            <div class="modal-body">
+                          <div class="form-group">
+                            <label for="messageToBuyer"><b>Message:</b></span></label>
+                            <textarea class="form-control" data-i18n="[placeholder]placeholder_required" cols="25" rows="4" id="messageToBuyer" maxlength="203"></textarea>
+                            </div>
+                              <p><span>Please enter your account secret phrase to send message.</span></p>
+                              <div class="form-group">
+                              <label for="secret_phrase_message"><b><span data-i18n="secret_phrase">Your Account Secret Phrase</span></b> :</label>
+                              <div class="iconic-input">
+                                <i class="fa fa-bars"></i>
+                                <input type="password" class="form-control" data-i18n="[placeholder]placeholder_required" id="secret_phrase_message" autofocus>
+                              </div>
+                              <br/>
+                                <button data-dismiss="modal" class="btn btn-secondary" type="button">Close</button>&nbsp;
+                                <button data-dismiss="modal" class="btn btn-default" type="button" onclick="message()"><span data-i18n="message_to_buyer">Message Buyer</span></button>
+                            </div>
+                            <p>The network fee of this transaction is 1 BLX.</p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    <!-- Message Modal-->
                   </div>
                 </div>
               </div>
@@ -560,7 +572,6 @@
         deadline: 60
       },
       function(result){
-        console.log(result);
         var errorCode = result.errorCode;
         if (!errorCode) {
           var finalizeID = result.transaction;
@@ -572,12 +583,45 @@
           } else { 
           var errorDescription = result.errorDescription;
           var errorCode = result.errorCode;
-          // Display failure message
           var finalize_failure = $.t("failure_finalize_purchase");
           document.getElementById("listingResult").innerHTML = finalize_failure + "<b> " + errorDescription + "</b>";
           };
       },"json");
   };
+  </script>
+  <script>
+    function message() {
+      var recipient = sessionStorage.getItem("seller");
+      var messageContents = {
+        t: sessionStorage.getItem("title"),
+        p: sessionStorage.getItem("price"),
+        m: $("#messageToBuyer").val()
+      }
+      $.post(Constants.apiUrl,{
+        requestType: 'sendMessage',
+        recipient: recipient,
+        messageToEncryptIsText: 'true',
+        encryptedMessageIsPrunable: 'true',
+        messageToEncrypt: JSON.stringify(messageContents, null, 4),
+        secretPhrase: $("#secret_phrase_message").val(),
+        feeNQT: 100000000,
+        deadline: 60
+      },
+      function(result){
+        var errorCode = result.errorCode;
+        if (!errorCode) {
+          var listingID = result.transaction;
+          var success = $.t("success");
+          document.getElementById("panel-heading").innerHTML = success;
+          document.getElementById("panel-body").innerHTML = "<b> TX ID: " + listingID + "</b><br/><br/>";
+          document.getElementById("purchaseButtonSection").style.display = "none";
+          } else { 
+          var errorDescription = result.errorDescription;
+          var errorCode = result.errorCode;
+          document.getElementById("listingResult").innerHTML = "<b> " + errorDescription + "</b>";
+          };
+      },"json");
+    };
   </script>
 </body>
 </html>

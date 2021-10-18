@@ -20,7 +20,7 @@
   <script>
   function login() {
     var Account = document.getElementById('user_entered_account_number').value;
-    if (!Account) { // Form validation
+    if (!Account) { 
       document.getElementById("user_entered_account_numberErrorMessage").innerHTML = "<p>Account Number Required</p>";
     } else {
       var currentRSAccountNumber =$('#user_entered_account_number').val();
@@ -30,13 +30,12 @@
         includeEffectiveBalance: "true"
       },
       function(result) {
-          console.log(result);
-          if (result.errorDescription == 'Unknown account') { // If this is not a valid account number
+          if (result.errorDescription == 'Unknown account') { 
             document.getElementById("user_entered_account_numberErrorMessage").innerHTML = "<p class=\"validation_message\">New or invalid BLX account.  New BLX accounts must first make an outgoing transaction from the Blue0x wallet.</p>";
             } else {
+            var balance = result.balanceNQT / 100000000;
             sessionStorage.setItem("accountRS", result.accountRS);
-            sessionStorage.setItem("accountBalance", result.effectiveBalanceNXT);
-            console.log('BLX Balance is ' + result.effectiveBalanceNXT)
+            sessionStorage.setItem("accountBalance", balance);
             var replace_loginResult = '';
             replace_loginResult += '<div class="media-body">';
             replace_loginResult += '<p>You have logged in with the following account:</p>';
@@ -45,7 +44,7 @@
             replace_loginResult += '</div>';
             replace_loginResult += '<div class="media-body">';
             replace_loginResult += '<a class="p-head">BLX Balance</a>';
-            replace_loginResult += '<p>' + result.effectiveBalanceNXT + ' BLX </p>';
+            replace_loginResult += '<p>' + balance + ' BLX </p>';
             replace_loginResult += '</div>';
             document.getElementById("loginResult").innerHTML = replace_loginResult;
           }
@@ -56,7 +55,7 @@
         currency: Constants.USDXId
       },
       function(coinquery) {
-        if (coinquery.length == 0) {
+        if (coinquery == '{}') {
             sessionStorage.setItem("USDXAccountBalance", "0 USDX");
             var replace_USDXAccountBalance = '';
             replace_USDXAccountBalance += '<div class="media-body">';
@@ -64,7 +63,7 @@
             replace_USDXAccountBalance += '<p>0 USDX</p>';
             replace_USDXAccountBalance += '</div>';
             replace_USDXAccountBalance += '</br>';
-            replace_USDXAccountBalance += '<a class="btn btn-default" href="account_details.html" role="button">View Account</a>&nbsp;&nbsp;<a class="btn btn-default" href="ListNewItem.html" role="button">List New Item</a>';
+            replace_USDXAccountBalance += '<a class="btn btn-default" href="ViewAll.html" role="button">View Items</a>&nbsp;&nbsp;<a class="btn btn-default" href="account_details.html" role="button">My Account</a>';
             document.getElementById("USDXAccountBalance").innerHTML = replace_USDXAccountBalance;
           } else {
             var USDXAccountBalance = coinquery.units;
@@ -76,7 +75,7 @@
             replace_USDXAccountBalance += '<p>' + convertedUSDXAccountBalance + ' USDX</p>';
             replace_USDXAccountBalance += '</div>';
             replace_USDXAccountBalance += '</br>';
-            replace_USDXAccountBalance += '<a class="btn btn-default" href="account_details.html" role="button">View Account</a>&nbsp;&nbsp;<a class="btn btn-default" href="ListNewItem.html" role="button">List New Item</a>';
+            replace_USDXAccountBalance += '<a class="btn btn-default" href="ViewAll.html" role="button">View Items</a>&nbsp;&nbsp;<a class="btn btn-default" href="account_details.html" role="button">My Account</a>';
             document.getElementById("USDXAccountBalance").innerHTML = replace_USDXAccountBalance;
           }
         }, "json");

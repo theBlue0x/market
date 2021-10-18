@@ -49,6 +49,7 @@ function checkLogin() {
                           <th class="hidden-phone"><span data-i18n="item_id">Item ID</span></th>
                           <th><span data-i18n="item_title">Item Title</span></th>
                           <th><span data-i18n="seller_id">Seller ID</span></th>
+                          <th>Pending</th>
                         </tr>
                       </thead>
                         <tbody id="table_body"></tbody>
@@ -75,19 +76,20 @@ function checkLogin() {
     var fmlang = localStorage.getItem("fmlang");
     $.getJSON(Constants.apiUrl, {
       requestType: "getDGSPurchases", 
-      buyer: user,
-      completed: "true"
+      buyer: user
     }, 
       function(request) {
       for (var i = 0; i < request.purchases.length ; i++) {
       var purchases = request.purchases[i];
       var id = request.purchases[i].goods;
       var seller = request.purchases[i].sellerRS;
+      var pending = request.purchases[i].pending
       var rows;
       rows += '<tr>';
-      rows += '<td class="hidden-phone"><a href=\'ViewItem.html?setLng=' + fmlang + '&itemid=' + id + '\'>' +id+ '</a></td>';
-      rows += '<td><a href=\'ViewItem.html?setLng=' + fmlang + '&itemid=' + id + '\'>' +escapeHtml(purchases.name)+'</a></td>';
+      rows += '<td class="hidden-phone"><a href=\'ViewPurchase.html?setLng=' + fmlang + '&itemid=' + id + '\'>' +id+ '</a></td>';
+      rows += '<td><a href=\'ViewPurchase.html?setLng=' + fmlang + '&itemid=' + id + '\'>' +escapeHtml(purchases.name)+'</a></td>';
       rows += '<td>'+ seller +'</td>';
+      rows += '<td>'+ pending +'</td>';
       rows += '</tr>';
     };
     $("#table_body").html(rows);

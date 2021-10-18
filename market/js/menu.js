@@ -57,7 +57,7 @@ document.write("<span class=\"username\" id=\"username\"><span data-i18n=\"menu_
 document.write("</a>");
 document.write("<ul class=\"dropdown-menu extended logout\">");
 document.write("<div class=\"log-arrow-up\"></div>");
-document.write("<li><a href=\"#\"><i class=\" fa fa-info-circle\"></i><div id=\"USDXbalance\"><span data-i18n=\"menu_login_text\">Log in to store your account number.</span></div></a></li>");
+document.write("<li><a href=\"account_details.html?setLng=en\"><i class=\" fa fa-info-circle\"></i><div id=\"USDXbalance\"><span data-i18n=\"menu_login_text\">Log in to store your account number.</span></div></a></li>");
 document.write("<li><a id=\"login_link\" href=\"account_details.html?setLng=en\"><i class=\"fa fa-key\"></i><div id=\"logintext\"><span data-i18n=\"menu_login\">Log In</span></div></a></li>");
 document.write("</ul>");
 document.write("</li>");

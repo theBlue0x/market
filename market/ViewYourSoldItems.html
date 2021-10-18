@@ -14,7 +14,6 @@
   <link href="css/spinner.css" rel="stylesheet">
 </head>
 <script>
-// Redirect the user if the user is not already logged in
 function checkLogin() {
   var loginStatus = sessionStorage.getItem("loginStatus");
   if (loginStatus == 'notloggedin') {
@@ -30,8 +29,7 @@ function checkLogin() {
 </script>
 <body class="full-width" onload="getAccount(); setAccountNumber(); checkLogin(); setLanguage();">
   <section id="container">
-    <script type="text/javascript" src="js/menu.js">
-    </script>
+    <script type="text/javascript" src="js/menu.js"></script>
     <section id="main-content">
       <section class="wrapper site-min-height">
         <div class="row">
@@ -85,8 +83,8 @@ function checkLogin() {
       var buyer = request.purchases[i].sellerRS;
       var rows;
       rows += '<tr>';
-      rows += '<td class="hidden-phone"><a href=\'ViewItem.html?setLng=' + fmlang + '&itemid=' + id + '\'>' +id+ '</a></td>';
-      rows += '<td><a href=\'ViewItem.html?setLng=' + fmlang + '&itemid=' + id + '\'>' +escapeHtml(purchases.name)+'</a></td>';
+      rows += '<td class="hidden-phone"><a href=\'ViewYourItemSold.html?setLng=' + fmlang + '&itemid=' + id + '\'>' +id+ '</a></td>';
+      rows += '<td><a href=\'ViewYourItemSold.html?setLng=' + fmlang + '&itemid=' + id + '\'>' +escapeHtml(purchases.name)+'</a></td>';
       rows += '<td>'+ buyer +'</td>';
       rows += '</tr>';
     };

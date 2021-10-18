@@ -13,33 +13,23 @@
   <link href="css/style-responsive.css" rel="stylesheet">
   <script>
   function callNxt() {
-    // Check for necessary fields
     var amountCheck = document.getElementById("amount").value;
     var destinationAddressCheck = document.getElementById("destinationAddress").value;
     var secretPhraseCheck = document.getElementById("secretPhrase").value;
-    if (amountCheck == "") { // If no amount has been entered
-      // Remove other error messages
+    if (amountCheck == "") { 
       document.getElementById("destinationAddressErrorMessage").innerHTML = "";
       document.getElementById("secretPhraseErrorMessage").innerHTML = "";
-      // And alert the user that the amount is required
       document.getElementById("amountErrorMessage").innerHTML = "<p class=\"validation_message\">An amount is required.</p>";
     } else if (destinationAddressCheck == "") {
-      // If there is no destination address
-      // Remove other error messages
       document.getElementById("amountErrorMessage").innerHTML = "";
       document.getElementById("secretPhraseErrorMessage").innerHTML = "";
-      // And alert the user that a destination address is required
       document.getElementById("destinationAddressErrorMessage").innerHTML = "<p class=\"validation_message\">An address is required.</p>";
     } else if (secretPhraseCheck == "") {
-      // If there is no secret phrase
-      // Remove other error messages
       document.getElementById("amountErrorMessage").innerHTML = "";
       document.getElementById("destinationAddressErrorMessage").innerHTML = "";
-      // And alert the user that a value to convert is required
       document.getElementById("secretPhraseErrorMessage").innerHTML = "<p class=\"validation_message\">Your secret phrase is required.</p>";
     } else {
       var amount = $('#amount').val();
-      // Disable the button while conversion is under way and display Processing... text
       var processingText = $.t("button_processing");
       document.getElementById("callNxtButtonSection").innerHTML = "<button type=\"button\" id=\"sellButton1\" class=\"btn btn-default\"><i class=\"fa fa-refresh fa-spin\"></i> &nbsp;" + processingText + "</button>";
       $.post(Constants.apiUrl, {
@@ -53,23 +43,17 @@
         },
       function(result) {
         var transactionNumber = result.transaction;
-          // Clear the fields
           document.getElementById("amount").value = "";
           document.getElementById("destinationAddress").value = "";
           document.getElementById("secretPhrase").value = "";
-          // Replace the Processing... button with a working button again
           document.getElementById("callNxtButtonSection").innerHTML = "<div id=\"callNxtButtonSection\"><button type=\"button\" id=\"callNxtButton\" class=\"btn btn-default\" onclick=\"callNxt();\">Send</button></div> <!--End of callNxtButtonSection div--><br /><div id=\"sendResult\"></div>";
-          // Display results
           document.getElementById("sendResult").innerHTML = "The transaction has completed. Please note the transaction ID in case your coins do not arrive at their destination: <b>" + transactionNumber + "</b>";
         }, "json");
     }};
 </script>
 <script >
-// QR Code Scanning
 function docReady(fn) {
-    // see if DOM is already available
     if (document.readyState === "complete" || document.readyState === "interactive") {
-        // call on next available tick
         setTimeout(fn, 1);
     } else {
         document.addEventListener("DOMContentLoaded", fn);
@@ -82,13 +66,34 @@ docReady(function() {
         if (decodedText !== lastResult) {
             ++countResults;
             lastResult = decodedText;
-            console.log(`Scan result = ${decodedText}`);
             document.getElementById('destinationAddress').value = decodedText;
-            // Optional: To close the QR code scannign after the result is found
             html5QrcodeScanner.clear();
-            setTimeout(function(){ $('#reader').modal('hide'); }, 300);   // Close modal after timeout
-        }
+            setTimeout(function(){ $('#reader').modal('hide'); }, 300);   
+        }}
+    function onScanError(qrCodeError) {
     }
+    html5QrcodeScanner.render(onScanSuccess, onScanError);
+});
+</script>
+<script >
+function docReady(fn) {
+    if (document.readyState === "complete" || document.readyState === "interactive") {
+        setTimeout(fn, 1);
+    } else {
+        document.addEventListener("DOMContentLoaded", fn);
+    }} 
+docReady(function() {
+    var lastResult, countResults = 0;
+    var html5QrcodeScanner = new Html5QrcodeScanner(
+        "qr-reader1", { fps: 10, qrbox: 250 });
+    function onScanSuccess(decodedText, decodedResult) {
+        if (decodedText !== lastResult) {
+            ++countResults;
+            lastResult = decodedText;
+            document.getElementById('secretPhrase').value = decodedText;
+            html5QrcodeScanner.clear();
+            setTimeout(function(){ $('#reader1').modal('hide'); }, 300);
+        }}
     function onScanError(qrCodeError) {
     }
     html5QrcodeScanner.render(onScanSuccess, onScanError);
@@ -142,8 +147,26 @@ docReady(function() {
                     </div> 
                   </div> 
                 </div> <!--modal -->
+                <div class="modal fade" style="top:10vh" id="reader1">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h4 class="modal-title">Scan Your Secret Phrase</h4>
+                      </div>
+                        <div class="modal-body" style="position: static">
+                         <div id="qr-reader1"></div>
+                        </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
+                      </div>
+                    </div> 
+                  </div> 
+                </div> <!-- /.modal -->
                 <div class="form-group">
                   <label for="secretPhrase"><span data-i18n="secret_phrase">Secret Phrase</span></label>
+                  <button type="button" class="btn btn-qr btn-xs" data-toggle="modal" data-target="#reader1">
+                    <i class="fa fa-qrcode"></i>
+                  </button>
                   <div class="iconic-input">
                     <i class="fa fa-key"></i>
                     <input type="password" class="form-control" id="secretPhrase" data-i18n="[placeholder]placeholder_required">

@@ -9,10 +9,9 @@
   <link href="css/bootstrap.min.css" rel="stylesheet">
   <link href="css/bootstrap-reset.css" rel="stylesheet">
   <link href="assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
-  <link href="css/style.css" rel="stylesheet">
+  <link href="css/style.min.css" rel="stylesheet">
   <link href="css/style-responsive.css" rel="stylesheet" />
   <link href="css/spinner.css" rel="stylesheet">
-  <!-- for image zooming -->
   <link href="assets/fancybox/jquery.fancybox.css" rel="stylesheet" />
   <link href="css/gallery.css" rel="stylesheet" />
   <script>
@@ -33,11 +32,9 @@
         document.getElementById("title").innerHTML = escapeHtml(request.name);
         document.getElementById("itemID").innerHTML = escapeHtml(id);
         document.getElementById("price").innerHTML = escapeHtml(displayPriceWithCurrency);
-        // Set Seller ID and Price Units in session
         sessionStorage.setItem("price", displayPrice);
         sessionStorage.setItem("seller", seller);
       }, "json"); 
-      // Get images and shipping info from message
       $.post(Constants.apiUrl, { 
         requestType: 'getTransaction',
         transaction: listingid
@@ -515,7 +512,7 @@
                               </div>
                               <br/>
                                 <button data-dismiss="modal" class="btn btn-secondary" type="button">Close</button>&nbsp;
-                                <button data-dismiss="modal" class="btn btn-default" type="button" onclick="finalize()"><span data-i18n="button_finalize_purchase">Finalize Sale</span></button>
+                                <button data-dismiss="modal" class="btn btn-default" type="button" onclick=""><span data-i18n="button_finalize_purchase">Finalize Sale</span></button>
                             </div>
                             </div>
                           </div>
@@ -548,36 +545,5 @@
   <script src="js/common-scripts.js"></script>
   <script src="js/i18next.min.js"></script>
   <script src="js/freemarket_localization_scripts.js"></script>
-  <script>
-    function finalize() {
-    var item = (getQueryVariable("purchaseid"));
-    $.post(Constants.apiUrl, {
-        requestType: 'dgsDelivery',
-        secretPhrase: $("#secret_phrase").val(),
-        purchase: item,
-        goodsToEncrypt: '1',
-        feeNQT: 100000000,
-        deadline: 60
-      },
-      function(result){
-        console.log(result);
-        var errorCode = result.errorCode;
-        if (!errorCode) {
-          var finalizeID = result.transaction;
-          var success = $.t("success");
-          document.getElementById("panel-heading").innerHTML = success;
-          var success_finalize = $.t("success_finalize_purchase");
-          document.getElementById("panel-body").innerHTML = success_finalize + "<b> " + finalizeID + "</b><br/><br/>";
-          document.getElementById("purchaseButtonSection").style.display = "none";
-          } else { 
-          var errorDescription = result.errorDescription;
-          var errorCode = result.errorCode;
-          // Display failure message
-          var finalize_failure = $.t("failure_finalize_purchase");
-          document.getElementById("listingResult").innerHTML = finalize_failure + "<b> " + errorDescription + "</b>";
-          };
-      },"json");
-  };
-  </script>
 </body>
 </html>
