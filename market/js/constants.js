@@ -7,6 +7,6 @@ var Constants = (function(Constants, $, undefined) {
   {
     Constants.USDXId = testnetUSDXId;
   }
-  Constants.apiUrl = 'http://localhost:2022/nxt';
+  Constants.apiUrl = 'http://35.196.115.87:2022/nxt';
   return Constants;
 } (Constants || {}, jQuery));
