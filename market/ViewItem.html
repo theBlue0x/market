@@ -15,6 +15,14 @@
   <link href="assets/fancybox/jquery.fancybox.css" rel="stylesheet" />
   <link href="css/gallery.css" rel="stylesheet" />
   <script>
+  function checkLogin() {
+    var loginStatus = sessionStorage.getItem("loginStatus");
+    if (loginStatus == 'notloggedin') {
+    var fmlang = localStorage.getItem("fmlang");
+    window.location.href = 'login.html' + '?setLng=' + fmlang;
+  }};
+  </script>
+  <script>
   function showItem() {
     var listingid = (getQueryVariable("itemid"));
     $.post(Constants.apiUrl, {
@@ -570,7 +578,7 @@ docReady(function() {
 });
 </script>
 </head>
-<body class="full-width" onload="setAccountNumber(); showItem(); setLanguage();">
+<body class="full-width" onload="setAccountNumber(); showItem(); setLanguage(); checkLogin();">
   <section id="container">
     <script type="text/javascript" src="js/menu.js"></script>
     <section id="main-content">

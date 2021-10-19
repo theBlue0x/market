@@ -67,6 +67,7 @@ function checkLogin() {
       currency: Constants.USDXId
     },
     function(coinquery) {
+      console.log(coinquery);
       if (coinquery == '{}') {
           sessionStorage.setItem("USDXAccountBalance", "0 USDX");
           document.getElementById("USDXAccountBalance").innerHTML = "0 USDX";

@@ -56,6 +56,7 @@
       },
       function(coinquery) {
         if (coinquery == '{}') {
+          console.log(coinquery);
             sessionStorage.setItem("USDXAccountBalance", "0 USDX");
             var replace_USDXAccountBalance = '';
             replace_USDXAccountBalance += '<div class="media-body">';
