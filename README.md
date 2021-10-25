@@ -1,2 +1,2 @@
-# market
-Blue0x Market Repo (Under Development)
+# Blue0x | MARKET Repo
+
