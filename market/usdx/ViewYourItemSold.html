@@ -4,44 +4,16 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Blue0x Decentralized Marketplace">
-  <link rel="shortcut icon" href="img/favicon.ico">
+  <link rel="shortcut icon" href="../img/favicon.ico">
   <title>Blue0x | MARKET</title>
-  <link href="css/bootstrap.min.css" rel="stylesheet">
-  <link href="css/bootstrap-reset.css" rel="stylesheet">
-  <link href="assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
-  <link href="css/style.min.css" rel="stylesheet">
-  <link href="css/style-responsive.css" rel="stylesheet" />
-  <link href="css/spinner.css" rel="stylesheet">
-  <link href="assets/fancybox/jquery.fancybox.css" rel="stylesheet" />
-  <link href="css/gallery.css" rel="stylesheet" />
-<script>
-  function cancelListing() {
-    var listingid = (getQueryVariable("itemid"));
-    $.post(Constants.apiUrl, {
-      requestType: 'dgsDelisting',
-      goods: listingid,
-      secretPhrase: $("#secret_phrase").val(),
-      feeNQT: 100000000,
-      deadline: 60
-    },
-    function(result) {
-        var errorCode = result.errorCode;
-        if (!errorCode) {
-          var listingID = result.transaction;
-          var fmlang = localStorage.getItem("fmlang");
-          var success = $.t("success");
-          document.getElementById("panel-heading").innerHTML = success;
-          var cancelMessage = $.t("success_cancel");
-          document.getElementById("panel-body").innerHTML = cancelMessage + "<b>" + listingID + "</b><br/><br/>";
-          document.getElementById("cancelButtonSection").style.display = "none";
-          } else { 
-            var errorDescription = result.errorDescription;
-            var errorCode = result.errorCode;
-              var post_failure = $.t("failure_cancel");
-              document.getElementById("listingResult").innerHTML = post_failure + "<b> " + errorDescription + "</b>";
-            }
-        }, "json");}
-</script>
+  <link href="../css/bootstrap.min.css" rel="stylesheet">
+  <link href="../css/bootstrap-reset.css" rel="stylesheet">
+  <link href="../assets/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+  <link href="../css/style.min.css" rel="stylesheet">
+  <link href="../css/style-responsive.css" rel="stylesheet" />
+  <link href="../css/spinner.css" rel="stylesheet">
+  <link href="../assets/fancybox/jquery.fancybox.css" rel="stylesheet" />
+  <link href="../css/gallery.css" rel="stylesheet" />
 <script>
   function showItem() {
     var listingid = (getQueryVariable("itemid"));
@@ -54,22 +26,13 @@
         var data = JSON.parse(request.description);
         var id = request.goods;
         var seller = request.sellerRS;
-        var delisted = request.delisted;
-        if (delisted == "true") {
-          document.getElementById("cancelButtonSection").innerHTML = " "; // Remove purchase button if delisted
-        } 
-        if (request.quantity == 0){
-          document.getElementById("cancelButtonSection").innerHTML = " "; // Remove purchase button if 0 avail
-        }
         var displayCurrency = escapeHtml(data.c);
         var displayPrice = escapeHtml(data.p);
         var displayPriceWithCurrency = displayPrice + " " + displayCurrency;
         document.getElementById("title").innerHTML = escapeHtml(request.name);
         document.getElementById("itemID").innerHTML = escapeHtml(id);
-        document.getElementById("itemIDModal").innerHTML = escapeHtml(id);
         document.getElementById("price").innerHTML = escapeHtml(displayPriceWithCurrency);
         document.getElementById("sellerID").innerHTML = seller;
-        // Set Seller ID and Price Units in session
         sessionStorage.setItem("price", displayPrice);
         sessionStorage.setItem("seller", seller);
       }, "json"); 
@@ -547,7 +510,7 @@
 </head>
 <body class="full-width" onload="setAccountNumber(); showItem(); setLanguage();">
   <section id="container">
-    <script type="text/javascript" src="js/menu.js"></script>
+    <script type="text/javascript" src="../js/menu.js"></script>
     <section id="main-content">
       <section class="wrapper">
         <div class="row">
@@ -574,37 +537,6 @@
                           </div>
                       </section>
                     </aside>
-                    <span id="listingResult"></span>
-                    <div id="cancelButtonSection">
-                      <button class="btn btn-danger" data-toggle="modal" data-target="#myModal"><span data-i18n="button_cancel_listing">Cancel Listing</span></button>
-                    </div> 
-                    <!-- Cancel Modal -->
-                    <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal" class="modal fade">
-                        <div class="modal-dialog">
-                          <div class="modal-content">
-                            <div class="modal-header">
-                              <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
-                              <h4 class="modal-title"><span data-i18n="button_cancel_listing">Cancel Listing</span></h4>
-                            </div>
-                            <div class="modal-body">
-                          <p><b> <span data-i18n="item_id">Item ID</span>: </b> <span id="itemIDModal"></span></p>
-                              <p><span>Please confirm by entering your account secret phrase.</span></p>
-                              <div class="form-group">
-                              <label for="secret_phrase"><b><span data-i18n="secret_phrase">Your Account Secret Phrase</span></b> :</label>
-                              <div class="iconic-input">
-                                <i class="fa fa-bars"></i>
-                                <input type="password" class="form-control" data-i18n="[placeholder]placeholder_required" id="secret_phrase" autofocus>
-                              </div>
-                              <br/>
-                                <button data-dismiss="modal" class="btn btn-secondary" type="button">Close</button>&nbsp;
-                                <button data-dismiss="modal" class="btn btn-danger" type="button" onclick="cancelListing()"><span data-i18n="button_cancel_listing">Cancel Listing</span></button>
-                            </div>
-                            <p>The network fee of this transaction is 1 BLX.</p>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    <!--Modal-->
                   </div>
                 </div>
               </div>
@@ -615,21 +547,21 @@
       </section>
     </section>
   </section>
-  <script src="js/jquery.min.js"></script>
-  <script src="js/bootstrap.min.js"></script>
-  <script src="js/jquery.dcjqaccordion.2.7.min.js"></script>
-  <script src="js/bootstrap-hover-dropdown.min.js"></script>
-  <script src="assets/fancybox/jquery.fancybox.js"></script>
-  <script src="js/validator.min.js"></script>
+  <script src="../js/jquery.min.js"></script>
+  <script src="../js/bootstrap.min.js"></script>
+  <script src="../js/jquery.dcjqaccordion.2.7.min.js"></script>
+  <script src="../js/bootstrap-hover-dropdown.min.js"></script>
+  <script src="../assets/fancybox/jquery.fancybox.js"></script>
+  <script src="../js/validator.min.js"></script>
   <script type="text/javascript">
   $(function() {
     jQuery(".fancybox").fancybox();
   });
   </script>
-  <script src="js/constants.js"></script>
-  <script src="js/freemarket_scripts.js"></script>
-  <script src="js/common-scripts.js"></script>
-  <script src="js/i18next.min.js"></script>
-  <script src="js/freemarket_localization_scripts.js"></script>
+  <script src="../js/constants.js"></script>
+  <script src="../js/freemarket_scripts.js"></script>
+  <script src="../js/common-scripts.js"></script>
+  <script src="../js/i18next.min.js"></script>
+  <script src="../js/freemarket_localization_scripts.js"></script>
 </body>
 </html>
