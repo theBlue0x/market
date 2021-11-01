@@ -38,8 +38,8 @@ function checkLogin() {
                     <table class="display table table-bordered table-striped" id="table">
                       <thead>
                         <tr>
-                          <th>Message ID</span></th>
-                          <th>Sender</span></th>
+                          <th>Message ID</th>
+                          <th>Sender</th>
                         </tr>
                       </thead>
                         <tbody id="table_body"></tbody>
@@ -76,8 +76,8 @@ function checkLogin() {
       var rows;
       if (sender != user) {
       rows += '<tr>';
-      rows += '<td><a href=\'ViewMessage.html?setLng=' + fmlang + '&messageid=' + id + '\'>' + id + '</a></td>';
-      rows += '<td>' + sender + '</td>';
+      rows += '<td>' + id + '</td>';
+      rows += '<td><a href=\'ViewMessage.html?setLng=' + fmlang + '&sender=' + sender + '\'>' + sender + '</a></td>';
       rows += '</tr>';
     }};
     $("#table_body").html(rows);
@@ -95,8 +95,7 @@ function searchTable() {
         for (j = 0; j < td.length; j++) {
             if (td[j].innerHTML.toUpperCase().indexOf(filter) > -1) {
                 found = true;
-            }
-        }
+            }}
         if (found) {
             tr[i].style.display = "";
             found = false;

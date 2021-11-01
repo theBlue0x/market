@@ -16,41 +16,32 @@
   <link href="../css/gallery.css" rel="stylesheet" />
   <script>
   function showMessage() {
-      sessionStorage.removeItem("title");
-      sessionStorage.removeItem("price");
-      sessionStorage.removeItem("previous");
-      sessionStorage.removeItem("recipient");
-      var messageID = (getQueryVariable("messageid"));
+      var sender = (getQueryVariable("sender"));
+      var user = sessionStorage.getItem("accountRS");
     $.getJSON(Constants.apiUrl, {
-        requestType: 'getPrunableMessage',
-        transaction: messageID,
+        requestType: 'getPrunableMessages',
+        account: user,
+        otherAccount: sender,
         secretPhrase: $("#secretPhrase").val()
       },
       function(request) {
-        var sentFrom = escapeHtml(request.senderRS);
-        sessionStorage.setItem("recipient", sentFrom);
-        var data = JSON.parse(request.decryptedMessage);
-        var title = escapeHtml(data.t);
-        sessionStorage.setItem("title", title);
-        var price = escapeHtml(data.p);
-        sessionStorage.setItem("price", price);
-        var previous = escapeHtml(data.o);
-        if (previous === 'undefined') {
-          previous = "N/A"
-        }
-        var message = escapeHtml(data.m);
-        sessionStorage.setItem("previous", message);
-        var result = '';
-        result += '<h5><b>Item:</b></h5>';
-        result += '<p>' + title + '</p>';
-        result += '<h5><b>Item Price:</b></h5>';
-        result += '<p>' + price + ' USDX </p>';
-        result += '<span id="prevMessage"><h5><b>Previous Message:</b></h5>';
-        result += '<p>' + previous + '</p></span>';
-        result += '<h5><b>New Message:</b></h5>';
-        result += '<p>' + message + '</p>';
-        result += '<br/>';
-        document.getElementById("panel-body").innerHTML = result;
+        console.log(request);
+        for (var i = 0; i < request.prunableMessages.length ; i++) {
+        var data = request.prunableMessages[i].decryptedMessage;
+        var sentFrom = request.prunableMessages[i].senderRS;
+        var recipient = request.prunableMessages[i].recipientRS;
+        var result;
+        if (user == sentFrom){
+        result += '<tr>';
+        result += '<td style="float:right;border-top:none;"><b>You:</b> ' + data + '</td>';
+        result += '</tr>';
+      } else {
+        result += '<tr>';
+        result += '<td style="float:left;border-top:none;"><b>Them:</b> ' + data + '</td>';
+        result += '</tr>';
+      }
+        $("#table-body").html(result);
+      }
         var buttons = "";
         buttons += '<a class="btn btn-default" href="ViewYourMessages.html">Back to Messages</a>&nbsp;<button class="btn btn-default" data-toggle="modal" data-target="#messageModal">Reply</button>';
         document.getElementById("messageButtonSection").innerHTML = buttons;
@@ -104,6 +95,9 @@ docReady(function() {
                     </div>
                   </div>
                 </div>
+                <table class="display table" style="border-top:none;">
+                  <tbody id="table-body"></tbody>
+                </table>
               </div>
                   <div id="messageButtonSection" style="margin-left:15px">
                       <a type="button" class="btn btn-default" onclick="showMessage()">Show Message</a>
@@ -182,19 +176,13 @@ docReady(function() {
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html5-qrcode/2.0.1/html5-qrcode.min.js"></script>
   <script>
     function message() {
-      var recipient = sessionStorage.getItem("recipient");
-      var messageContents = {
-        t: sessionStorage.getItem("title"),
-        p: sessionStorage.getItem("price"),
-        o: sessionStorage.getItem("previous"),
-        m: $("#reply").val()
-      }
+      var sender = (getQueryVariable("sender"));
       $.post(Constants.apiUrl,{
         requestType: 'sendMessage',
-        recipient: recipient,
+        recipient: sender,
         messageToEncryptIsText: 'true',
         encryptedMessageIsPrunable: 'true',
-        messageToEncrypt: JSON.stringify(messageContents, null, 4),
+        messageToEncrypt: $("#reply").val(),
         secretPhrase: $("#secret_phrase_message").val(),
         feeNQT: 100000000,
         deadline: 60
@@ -206,15 +194,10 @@ docReady(function() {
           var success = $.t("success");
           document.getElementById("panel-heading").innerHTML = success;
           document.getElementById("panel-body").innerHTML = "<b> TX ID: " + transactionID + "</b><br/><br/>";
-          document.getElementById("messageButtonSection").style.display = "none";
-          sessionStorage.removeItem("title");
-          sessionStorage.removeItem("price");
-          sessionStorage.removeItem("previous");
-          sessionStorage.removeItem("recipient");
           } else { 
           var errorDescription = result.errorDescription;
           var errorCode = result.errorCode;
-          document.getElementById("listingResult").innerHTML = "<b> " + errorDescription + "</b>";
+          document.getElementById("panel-body").innerHTML = "<b> " + errorDescription + "</b>";
           };
       },"json");
     };

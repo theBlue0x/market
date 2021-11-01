@@ -658,7 +658,7 @@ docReady(function() {
                           <p><b> <span data-i18n="item_title">Item Title</span>: </b> <span id="titleMessageModal"></span></p>
                           <p><b> <span data-i18n="price">Price</span>:</b> <span id="priceMessageModal"></span></p>
                           <div class="form-group">
-                            <label for="messageToSeller"><b>Message to Seller:</b></label>
+                            <label for="messageToSeller"><b>Message to Seller: (Please include the item in your message)</b></label>
                             <textarea class="form-control" data-i18n="[placeholder]placeholder_required" cols="25" rows="4" id="messageToSeller" maxlength="203"></textarea>
                             </div>
                               <p><span>Please enter your account secret phrase to send message.</span></p>
@@ -841,17 +841,12 @@ docReady(function() {
   <script>
     function message() {
       var recipient = sessionStorage.getItem("seller");
-      var messageContents = {
-        t: sessionStorage.getItem("title"),
-        p: sessionStorage.getItem("price"),
-        m: $("#messageToSeller").val()
-      }
       $.post(Constants.apiUrl,{
         requestType: 'sendMessage',
         recipient: recipient,
         messageToEncryptIsText: 'true',
         encryptedMessageIsPrunable: 'true',
-        messageToEncrypt: JSON.stringify(messageContents, null, 4),
+        messageToEncrypt: $("#messageToSeller").val(),
         secretPhrase: $("#secret_phrase_message").val(),
         feeNQT: 100000000,
         deadline: 60
@@ -864,9 +859,7 @@ docReady(function() {
           document.getElementById("panel-heading").innerHTML = success;
           document.getElementById("panel-body").innerHTML = "<b> TX ID: " + listingID + "</b><br/><br/>";
           document.getElementById("purchaseButtonSection").style.display = "none";
-          sessionStorage.removeItem("title");
-          sessionStorage.removeItem("price");
-          sessionStorage.removeItem("recipient");
+          sessionStorage.removeItem("seller");
           } else { 
           var errorDescription = result.errorDescription;
           var errorCode = result.errorCode;
