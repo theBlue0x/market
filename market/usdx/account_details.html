@@ -68,7 +68,7 @@ function checkLogin() {
     },
     function(coinquery) {
       console.log(coinquery);
-      if (coinquery = '{}') {
+      if (Object.keys(coinquery).length == 0) {
           sessionStorage.setItem("USDXAccountBalance", "0 USDX");
           document.getElementById("USDXAccountBalance").innerHTML = "0 USDX";
           document.getElementById("USDXbalance").innerHTML = 'Account Balance: <br /> 0 USDX';

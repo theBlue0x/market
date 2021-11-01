@@ -55,8 +55,7 @@
         currency: Constants.USDXId
       },
       function(coinquery) {
-        console.log(coinquery);
-        if (coinquery = '{}') {
+        if (Object.keys(coinquery).length == 0) {
             sessionStorage.setItem("USDXAccountBalance", "0 USDX");
             var replace_USDXAccountBalance = '';
             replace_USDXAccountBalance += '<div class="media-body">';
