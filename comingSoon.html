@@ -36,19 +36,8 @@
 			<div class="row">
 				<h1>BLUE0X|<span>MARKET</span></h1>
 				<h2>BLUE0X <span>MARKET</span></h2>
-				<p class="text-white mx-auto mt-2" style="color:white;">Buy and sell anything without fiat currency.</p>
-				<select class="form-control m-bot15" id="currency" onchange="location = this.value;">>
-					<option value="">Select Your Currency...</option>
-					<option value="usdx.html">USDX - United States Dollar</option>
-					<option value="">AUDX - Australian Dollar (Coming Soon!)</option>
-					<option value="">CHFX - Swiss Franc (Coming Soon!)</option>
-					<option value="">CNYX - Chinese Yuan (Coming Soon!)</option>
-					<option value="">EURX - Euro (Coming Soon!)</option>
-					<option value="">GBPX - British Pound (Coming Soon!)</option>
-					<option value="">IRRX - Iranian Rial (Coming Soon!)</option>
-					<option value="">JPYX - Japanese Yen (Coming Soon!)</option>
-					<option value="">NZDX - New Zealand Dollar (Coming Soon!)</option>
-				</select>
+				<p class="text-white mx-auto mt-2" style="color:white;">Under Development.</p>
+				<a class="myButton" onclick="goBack();" role="button">Go Back</a>
 			</div><!-- /row -->
 		</div><!-- /container -->
 	</div><!-- /headerwrap -->
@@ -57,5 +46,10 @@
 <script src="assets/js/bootstrap.min.js"></script>
 <script src="assets/js/smoothscroll.js"></script>
 <script src="assets/js/main.js"></script>
+<script>
+	function goBack() {
+  	window.history.back();
+	}
+</script>
 </body>
 </html>
