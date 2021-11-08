@@ -38,7 +38,8 @@ function checkLogin() {
                     <table class="display table table-bordered table-striped" id="table">
                       <thead>
                         <tr>
-                          <th>Message ID</th>
+                          <th>Date</th>
+                          <th class="hidden-phone">Message ID</th>
                           <th>Sender</th>
                         </tr>
                       </thead>
@@ -69,14 +70,20 @@ function checkLogin() {
       account: user
     }, 
       function(request) {
+        console.log(request);
       for (var i = 0; i < request.prunableMessages.length ; i++) {
+      var genesisDate = new Date("05/07/2021 12:34:00");
+      var genesisEpoch = genesisDate.getTime()/1000;
+      var blockEpoch = genesisEpoch + request.prunableMessages[i].blockTimestamp;
+      var blockDate = new Date(blockEpoch*1000);
       var sender = request.prunableMessages[i].senderRS;
       var recipient = request.prunableMessages[i].recipientRS;
       var id = request.prunableMessages[i].transaction;
       var rows;
       if (sender != user) {
       rows += '<tr>';
-      rows += '<td>' + id + '</td>';
+      rows += '<td>' + blockDate.toUTCString() + '</td>';
+      rows += '<td class="hidden-phone">' + id + '</td>';
       rows += '<td><a href=\'ViewMessage.html?setLng=' + fmlang + '&sender=' + sender + '\'>' + sender + '</a></td>';
       rows += '</tr>';
     }};

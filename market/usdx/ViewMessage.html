@@ -25,7 +25,6 @@
         secretPhrase: $("#secretPhrase").val()
       },
       function(request) {
-        console.log(request);
         for (var i = 0; i < request.prunableMessages.length ; i++) {
         var data = request.prunableMessages[i].decryptedMessage;
         var sentFrom = request.prunableMessages[i].senderRS;
@@ -41,6 +40,7 @@
         result += '</tr>';
       }
         $("#table-body").html(result);
+        document.getElementById("phrase").style.display = "none";
       }
         var buttons = "";
         buttons += '<a class="btn btn-default" href="ViewYourMessages.html">Back to Messages</a>&nbsp;<button class="btn btn-default" data-toggle="modal" data-target="#messageModal">Reply</button>';
@@ -84,20 +84,20 @@ docReady(function() {
                 <span>Message</span>
               </header>
               <div class="panel-body" style="padding:20px;" id="panel-body">
-                  <div class="form-group">
+                  <div class="form-group" id="phrase">
                     <label for="secretPhrase"><span data-i18n="secret_phrase">Account Secret Phrase</span></label>
                     <button type="button" class="btn btn-qr btn-xs" data-toggle="modal" data-target="#reader1">
                     <i class="fa fa-qrcode"></i>
-                  </button>
+                    </button>
                     <div class="iconic-input">
                       <i class="fa fa-key"></i>
                       <input type="password" class="form-control" id="secretPhrase" data-i18n="[placeholder]placeholder_required">
                     </div>
                   </div>
-                </div>
-                <table class="display table" style="border-top:none;">
+                  <table class="display table" style="border-top:none;margin-bottom:0px;">
                   <tbody id="table-body"></tbody>
                 </table>
+                </div>
               </div>
                   <div id="messageButtonSection" style="margin-left:15px">
                       <a type="button" class="btn btn-default" onclick="showMessage()">Show Message</a>
