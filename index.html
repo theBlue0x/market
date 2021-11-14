@@ -36,9 +36,10 @@
 			<div class="row">
 				<h1>BLUE0X|<span>MARKET</span></h1>
 				<h2>BLUE0X <span>MARKET</span></h2>
-				<p class="text-white mx-auto mt-2" style="color:white;">Buy and sell anything without fiat currency.</p>
-				<select class="form-control m-bot15" id="currency" onchange="location = this.value;">>
-					<option value="">Select Your Currency...</option>
+				<p style="color:white;margin-top:20px;">Decentralized Global Marketplace</p>
+				<form action="#">
+				<select class="form-control m-bot15" name="market">
+					<option value="#">Select A Market...</option>
 					<option value="usdx.html">USDX - United States Dollar</option>
 					<option value="">AUDX - Australian Dollar (Coming Soon!)</option>
 					<option value="">CHFX - Swiss Franc (Coming Soon!)</option>
@@ -49,6 +50,9 @@
 					<option value="">JPYX - Japanese Yen (Coming Soon!)</option>
 					<option value="">NZDX - New Zealand Dollar (Coming Soon!)</option>
 				</select>
+				<br/>
+				<input type="button" class="myButton" onclick="window.open(this.form.market.options[this.form.market.selectedIndex].value,'_top')" value="Continue">
+				</form>
 			</div><!-- /row -->
 		</div><!-- /container -->
 	</div><!-- /headerwrap -->
