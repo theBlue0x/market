@@ -136,7 +136,7 @@ var resources = {
       "travel": "Travel",
       "video_games": "Video Games",
       "error_secret_phrase": "Your account's secret phrase is required.",
-      "select_language": "Select your language below.",
+      "select_language": "Select your language.",
       "error_price": "The price may only contain numbers.",
       "error_title_required": "A title is required for your item.",
       "error_category_required": "A category is required for your item.",
