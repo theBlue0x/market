@@ -54,13 +54,10 @@ function checkLogin() {
       includeEffectiveBalance: "true"
     },
     function(result) {
-      var balance = result.balanceNQT / 100000000;
-        sessionStorage.setItem("accountBalance", balance);
-      }, "json"); 
+    var balance = result.balanceNQT / 100000000;
     document.getElementById("RSaccount_number").innerHTML = currentRSAccountNumber;
-    var currentAccountBalance = sessionStorage.getItem("accountBalance");
-    document.getElementById("currentAccountBalance").innerHTML = currentAccountBalance;
-
+    document.getElementById("currentAccountBalance").innerHTML = balance.toLocaleString();
+    }, "json");
     $.post(Constants.apiUrl, {
       requestType: 'getAccountCurrencies',
       account: currentRSAccountNumber,
@@ -76,8 +73,8 @@ function checkLogin() {
           var USDXAccountBalance = coinquery.units;
           sessionStorage.setItem("USDXAccountBalance", coinquery.units);
           var convertedUSDXAccountBalance = USDXAccountBalance / 100;
-          document.getElementById("USDXAccountBalance").innerHTML = convertedUSDXAccountBalance + " USDX";
-          document.getElementById("USDXbalance").innerHTML = 'Account Balance: <br />' + convertedUSDXAccountBalance + " USDX";
+          document.getElementById("USDXAccountBalance").innerHTML = convertedUSDXAccountBalance.toLocaleString() + " USDX";
+          document.getElementById("USDXbalance").innerHTML = 'Account Balance: <br />' + convertedUSDXAccountBalance.toLocaleString() + " USDX";
         }
       }, "json");
   };

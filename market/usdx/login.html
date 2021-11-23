@@ -44,7 +44,7 @@
             replace_loginResult += '</div>';
             replace_loginResult += '<div class="media-body">';
             replace_loginResult += '<a class="p-head">BLX Balance</a>';
-            replace_loginResult += '<p>' + balance + ' BLX </p>';
+            replace_loginResult += '<p>' + balance.toLocaleString() + ' BLX </p>';
             replace_loginResult += '</div>';
             document.getElementById("loginResult").innerHTML = replace_loginResult;
           }
@@ -72,7 +72,7 @@
             var replace_USDXAccountBalance = '';
             replace_USDXAccountBalance += '<div class="media-body">';
             replace_USDXAccountBalance += '<a class="p-head">USDX Balance</a>';
-            replace_USDXAccountBalance += '<p>' + convertedUSDXAccountBalance + ' USDX</p>';
+            replace_USDXAccountBalance += '<p>' + convertedUSDXAccountBalance.toLocaleString() + ' USDX</p>';
             replace_USDXAccountBalance += '</div>';
             replace_USDXAccountBalance += '</br>';
             replace_USDXAccountBalance += '<a class="btn btn-default" href="ViewAll.html" role="button">View Items</a>&nbsp;&nbsp;<a class="btn btn-default" href="account_details.html" role="button">My Account</a>';

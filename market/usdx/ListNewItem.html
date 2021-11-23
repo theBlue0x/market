@@ -112,7 +112,7 @@ docReady(function() {
       document.getElementById("secretPhraseErrorMessage").innerHTML = "<p class=\"validation_message\">" + translatedSecretPhraseErrorMessage + "</p>";
     } else {
       document.getElementById("listingResult").innerHTML = "";
-      document.getElementById("postButtonSection").innerHTML = "<button type=\"button\" id=\"postButton\" class=\"btn btn-info\"><i class=\"fa fa-refresh fa-spin\"></i> &nbsp;Processing...</button>";
+      document.getElementById("postButtonSection").innerHTML = "<button type=\"button\" id=\"postButton\" class=\"btn btn-default\"><i class=\"fa fa-refresh fa-spin\"></i> &nbsp;Processing...</button>";
       var description = {
         p: $('#itemPrice').val(),
         c: itemCurrency,
@@ -153,7 +153,7 @@ docReady(function() {
           } else { 
             var errorDescription = result.errorDescription;
             var errorCode = result.errorCode;
-              document.getElementById("postButtonSection").innerHTML = "<button type=\"button\" id=\"postButton\" class=\"btn btn-info\" onclick=\"postNewItem();\"><div id=\"postButtonText\"></div></button>";
+              document.getElementById("postButtonSection").innerHTML = "<button type=\"button\" id=\"postButton\" class=\"btn btn-default\" onclick=\"postNewItem();\"><div id=\"postButtonText\"></div></button>";
               setButtonText();
               var post_failure = $.t("post_failure");
               document.getElementById("listingResult").innerHTML = post_failure + "<b> " + errorDescription + "</b>";
@@ -793,7 +793,7 @@ hr {
                          <div id="qr-reader1"></div>
                         </div>
                       <div class="modal-footer">
-                        <button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                       </div>
                     </div> <!-- /.modal-content -->
                   </div> <!-- /.modal-dialog -->
