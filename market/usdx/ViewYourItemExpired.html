@@ -73,11 +73,11 @@
               var main_image_url = escapeHtml(message.i);
             } else {
               // URL is not for an image file
-              var main_image_url = "img/Box-icon.png";
+              var main_image_url = "../img/Box-icon.png";
             }
           } else {
             // Field is not a valid URL
-            var main_image_url = "img/Box-icon.png";
+            var main_image_url = "../img/Box-icon.png";
           }
           // Add the image to the page
           document.getElementById("top_image").innerHTML = '<a id="previewMainImageLink" class="fancybox" rel="group" href="' + main_image_url + '"><img alt="" src="' + main_image_url + '"></a>';
@@ -477,7 +477,7 @@
                     <aside class="profile-nav alt">
                       <section class="panel">
                         <div class="user-heading alt">
-                          <span id="top_image"><a href="#"><img alt="" src="img/Box-icon.png"></a></span>
+                          <span id="top_image"><a href="#"><img alt="" src="../img/Box-icon.png"></a></span>
                           <h1 id="title">No Item Title</h1>
                           <p><b> <span data-i18n="pending">Pending</span></b></p>
                           </div>

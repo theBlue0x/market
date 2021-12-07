@@ -126,7 +126,7 @@ docReady(function() {
                                 <button data-dismiss="modal" class="btn btn-secondary" type="button">Close</button>&nbsp;
                                 <button data-dismiss="modal" class="btn btn-default" type="button" onclick="message()">Reply</button>
                             </div>
-                            <p>The network fee of this transaction is 1 BLX.</p>
+                            <p>The network fee of this transaction is 0.01 BLX.</p>
                             </div>
                           </div>
                         </div>
@@ -184,7 +184,7 @@ docReady(function() {
         encryptedMessageIsPrunable: 'true',
         messageToEncrypt: $("#reply").val(),
         secretPhrase: $("#secret_phrase_message").val(),
-        feeNQT: 100000000,
+        feeNQT: 1000000,
         deadline: 60
       },
       function(result){

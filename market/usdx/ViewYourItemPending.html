@@ -59,10 +59,10 @@
             if (Extension == "gif" || Extension == "png" || Extension == "jpeg" || Extension == "jpg") {
               var main_image_url = escapeHtml(message.i);
             } else {
-              var main_image_url = "img/Box-icon.png";
+              var main_image_url = "../img/Box-icon.png";
             }
           } else {
-            var main_image_url = "img/Box-icon.png";
+            var main_image_url = "../img/Box-icon.png";
           }
           document.getElementById("top_image").innerHTML = '<a id="previewMainImageLink" class="fancybox" rel="group" href="' + main_image_url + '"><img alt="" src="' + main_image_url + '"></a>';
         }});
@@ -460,7 +460,7 @@
                     <aside class="profile-nav alt">
                       <section class="panel">
                         <div class="user-heading alt">
-                          <span id="top_image"><a href="#"><img alt="" src="img/Box-icon.png"></a></span>
+                          <span id="top_image"><a href="#"><img alt="" src="../img/Box-icon.png"></a></span>
                           <h1 id="title">No Item Title</h1>
                           <p><b> <span data-i18n="pending">Pending</span></b></p>
                           </div>
@@ -498,7 +498,7 @@
                                 <button data-dismiss="modal" class="btn btn-secondary" type="button">Close</button>&nbsp;
                                 <button data-dismiss="modal" class="btn btn-default" type="button" onclick="finalize()"><span data-i18n="button_finalize_purchase">Finalize Sale</span></button>
                             </div>
-                            <p>The network fee of this transaction is 1 BLX.</p>
+                            <p>The network fee of this transaction is 0.01 BLX.</p>
                             </div>
                           </div>
                         </div>
@@ -528,7 +528,7 @@
                                 <button data-dismiss="modal" class="btn btn-secondary" type="button">Close</button>&nbsp;
                                 <button data-dismiss="modal" class="btn btn-default" type="button" onclick="message()"><span data-i18n="message_to_buyer">Message Buyer</span></button>
                             </div>
-                            <p>The network fee of this transaction is 1 BLX.</p>
+                            <p>The network fee of this transaction is 0.01 BLX.</p>
                             </div>
                           </div>
                         </div>
@@ -568,7 +568,7 @@
         secretPhrase: $("#secret_phrase").val(),
         purchase: item,
         goodsToEncrypt: '1',
-        feeNQT: 100000000,
+        feeNQT: 1000000,
         deadline: 60
       },
       function(result){
@@ -604,7 +604,7 @@
         encryptedMessageIsPrunable: 'true',
         messageToEncrypt: JSON.stringify(messageContents, null, 4),
         secretPhrase: $("#secret_phrase_message").val(),
-        feeNQT: 100000000,
+        feeNQT: 1000000,
         deadline: 60
       },
       function(result){

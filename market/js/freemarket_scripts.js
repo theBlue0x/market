@@ -1,17 +1,9 @@
 // Gets account number from local storage, or redirects user to login page if no account number is in local storage
 function setAccountNumber() {
-  if (sessionStorage.getItem("accountRS"))
-  {
-    var USDXbalance = sessionStorage.getItem("USDXAccountBalance");
-    var username = "My Account";
-    document.getElementById("username").innerHTML = username + '&nbsp;<span class="caret"></span>';
-    var translatedAccountBalance = $.t("account_balance");
-    var translatedAccountDetails = $.t("account_details");
-    document.getElementById("USDXbalance").innerHTML = translatedAccountBalance + ':<br />' + USDXbalance;
-    document.getElementById("logintext").innerHTML = translatedAccountDetails;
+  if (sessionStorage.getItem("accountRS")) {
+    document.getElementById("username").innerHTML = "Account";
     sessionStorage.setItem("loginStatus","loggedin");
-  }
-  else {
+  } else {
     sessionStorage.setItem("loginStatus","notloggedin");
   }
 };

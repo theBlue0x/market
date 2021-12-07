@@ -64,17 +64,13 @@ function checkLogin() {
       currency: Constants.USDXId
     },
     function(coinquery) {
-      console.log(coinquery);
       if (Object.keys(coinquery).length == 0) {
-          sessionStorage.setItem("USDXAccountBalance", "0 USDX");
           document.getElementById("USDXAccountBalance").innerHTML = "0 USDX";
-          document.getElementById("USDXbalance").innerHTML = 'Account Balance: <br /> 0 USDX';
         } else {
           var USDXAccountBalance = coinquery.units;
           sessionStorage.setItem("USDXAccountBalance", coinquery.units);
           var convertedUSDXAccountBalance = USDXAccountBalance / 100;
           document.getElementById("USDXAccountBalance").innerHTML = convertedUSDXAccountBalance.toLocaleString() + " USDX";
-          document.getElementById("USDXbalance").innerHTML = 'Account Balance: <br />' + convertedUSDXAccountBalance.toLocaleString() + " USDX";
         }
       }, "json");
   };
