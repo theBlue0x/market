@@ -1,5 +1,5 @@
 var Constants = (function(Constants, $, undefined) {
   Constants.USDXId = '10566018145898699547';
-  Constants.apiUrl = 'http://localhost:2022/nxt';
+  Constants.apiUrl = 'https://wallet.blue0x.com/nxt';
   return Constants;
 } (Constants || {}, jQuery));
