@@ -458,7 +458,7 @@
               <div class="panel-body" style="padding:30px;padding-bottom:0px;padding-top:20px;" id="panel-body">
                 <div class="form-group">
                     <aside class="profile-nav alt">
-                      <section class="panel">
+                      <section class="panel" style="box-shadow:none">
                         <div class="user-heading alt">
                           <span id="top_image"><a href="#"><img alt="" src="../img/Box-icon.png"></a></span>
                           <h1 id="title">No Item Title</h1>
@@ -469,7 +469,6 @@
                           <p><b> <span data-i18n="price">Price</span>:</b> <span id="price"></span></p>
                           <p><b> <span data-i18n="location">Location</span>:</b> <span id="location"></span></p>
                           </div>
-                        </div>
                       </section>
                     </aside>
                     <span id="listingResult"></span>
@@ -578,7 +577,7 @@
           var success = $.t("success");
           document.getElementById("panel-heading").innerHTML = success;
           var success_finalize = $.t("success_finalize_purchase");
-          document.getElementById("panel-body").innerHTML = success_finalize + "<b> " + finalizeID + "</b><br/><br/>";
+          document.getElementById("panel-body").innerHTML = success_finalize + "<b> " + finalizeID + "</b><br/><br/>&nbsp;";
           document.getElementById("purchaseButtonSection").style.display = "none";
           } else { 
           var errorDescription = result.errorDescription;

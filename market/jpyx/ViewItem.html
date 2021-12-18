@@ -590,9 +590,10 @@ docReady(function() {
                 <span data-i18n="item_id">Item ID</span>: <span id="itemID"></span>
               </header>
               <div class="panel-body" style="padding:30px;padding-bottom:0px;padding-top:20px;" id="panel-body">
+                <span id="payment"></span>
                 <div class="form-group">
                     <aside class="profile-nav alt">
-                      <section class="panel">
+                      <section class="panel" style="box-shadow:none;">
                         <div class="user-heading alt">
                           <span id="top_image"><a href="#"><img alt="" src="../img/Box-icon.png"></a></span>
                           <h1 id="title">No Item Title</h1>
@@ -604,11 +605,9 @@ docReady(function() {
                           <p><b> <span data-i18n="location">Location</span>:</b> <span id="location"></span></p>
                           </div>
                           <div class="user-heading alt" id="extra_images_section"></div>
-                          </div>
                       </section>
                     </aside>
                     <span id="listingResult"></span>
-                    <span id="payment"></span>
                     <div id="purchaseButtonSection">
                       <button class="btn btn-default" data-toggle="modal" data-target="#messageModal"><span data-i18n="message_to_seller">Message Seller</span></button>
                       <button class="btn btn-danger" onclick="checkFunds()"><span data-i18n="buy_item">Buy Item</span></button>
@@ -764,31 +763,11 @@ docReady(function() {
       var listingid = (getQueryVariable("itemid"));
       var recipient = sessionStorage.getItem("seller");
       var price = sessionStorage.getItem("price") * 100;
-    $.post(Constants.apiUrl,{
-      requestType: 'transferCurrency',
-      recipient: recipient,
-      currency: Constants.JPYXId,
-      units: price,
-      secretPhrase: $("#secret_phrase").val(),
-      feeNQT: 1000000,
-      deadline: 60
-    },
-      function(payment){
-      var errorCode1 = payment.errorCode;
-        if (!errorCode1) {
-          var paymentID = payment.transaction;
-          document.getElementById("payment").innerHTML = "<p><b>Payment Transaction ID : " + paymentID + "</b></p>";
-          } else { 
-          var errorDescription1 = payment.errorDescription;
-          document.getElementById("payment").innerHTML = "<p>Payment Transaction ID : " + errorDescription1 + "</p>";
-          };
-    },"json");
-    
     $.getJSON(Constants.apiUrl, {
       requestType: 'getTime'     
     },
       function(request){
-        var deliveryTime = (+request.time + +259200);
+        var deliveryTime = request.time + 259200;
         sessionStorage.setItem("futureTime", deliveryTime);
       });
     $.post(Constants.apiUrl, {
@@ -808,7 +787,7 @@ docReady(function() {
           var success = $.t("success");
           document.getElementById("panel-heading").innerHTML = success;
           var success_purchase_part1 = $.t("success_purchase_part1");
-          document.getElementById("panel-body").innerHTML = success_purchase_part1 + "<b> " + listingID + "</b><br/><br/>";
+          document.getElementById("panel-body").innerHTML = success_purchase_part1 + "<b> " + listingID + "</b><br/><br/>&nbsp;";
           document.getElementById("purchaseButtonSection").style.display = "none";
           } else { 
           var errorDescription = result.errorDescription;

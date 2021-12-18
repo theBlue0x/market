@@ -469,7 +469,6 @@
                           <p><b> <span data-i18n="price">Price</span>:</b> <span id="price"></span></p>
                           <p><b> <span data-i18n="location">Location</span>:</b> <span id="location"></span></p>
                           </div>
-                        </div>
                       </section>
                     </aside>
                     <span id="listingResult"></span>
@@ -578,7 +577,7 @@
           var success = $.t("success");
           document.getElementById("panel-heading").innerHTML = success;
           var success_finalize = $.t("success_finalize_purchase");
-          document.getElementById("panel-body").innerHTML = success_finalize + "<b> " + finalizeID + "</b><br/><br/>";
+          document.getElementById("panel-body").innerHTML = success_finalize + "<b> " + finalizeID + "</b><br/><br/>&nbsp;";
           document.getElementById("purchaseButtonSection").style.display = "none";
           } else { 
           var errorDescription = result.errorDescription;

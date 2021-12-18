@@ -30,8 +30,8 @@
                     <table class="display table table-bordered table-striped" id="table">
                       <thead>
                         <tr>
-                          <th class="hidden-phone"><span data-i18n="item_id">Item ID</span></th>
                           <th><span data-i18n="item_title">Title</span></th>
+                          <th class="hidden-phone"><span data-i18n="item_id">Item ID</span></th>
                           <th><span data-i18n="price">Price</span></th>
                         </tr>
                       </thead>
@@ -69,8 +69,8 @@
       var id = request.goods[i].goods;
       var rows;
       rows += '<tr>';
-      rows += '<td class="hidden-phone"><a href=\'ViewItem.html?setLng=' + fmlang + '&itemid=' + id + '\'>' + id + '</a></td>';
       rows += '<td><a href=\'ViewItem.html?setLng=' + fmlang + '&itemid=' + id + '\'>' + escapeHtml(goods.name) + '</a></td>';
+      rows += '<td class="hidden-phone"><a href=\'ViewItem.html?setLng=' + fmlang + '&itemid=' + id + '\'>' + id + '</a></td>';
       rows += '<td>'+ escapeHtml(data.p) +'&nbsp;'+ escapeHtml(data.c) +'</td>';
       rows += '</tr>';
     };

@@ -45,8 +45,8 @@ function checkLogin() {
                     <table class="display table table-bordered table-striped" id="example">
                       <thead>
                         <tr>
-                          <th class="hidden-phone"><span data-i18n="item_id">Item ID</span></th>
                           <th><span data-i18n="item_title">Item Title</span></th>
+                          <th class="hidden-phone"><span data-i18n="item_id">Item ID</span></th>
                           <th><span data-i18n="seller_id">Seller ID</span></th>
                           <th>Pending</th>
                         </tr>
@@ -85,8 +85,8 @@ function checkLogin() {
       var pending = request.purchases[i].pending
       var rows;
       rows += '<tr>';
-      rows += '<td class="hidden-phone"><a href=\'ViewPurchase.html?setLng=' + fmlang + '&itemid=' + id + '\'>' +id+ '</a></td>';
       rows += '<td><a href=\'ViewPurchase.html?setLng=' + fmlang + '&itemid=' + id + '\'>' +escapeHtml(purchases.name)+'</a></td>';
+      rows += '<td class="hidden-phone"><a href=\'ViewPurchase.html?setLng=' + fmlang + '&itemid=' + id + '\'>' +id+ '</a></td>';
       rows += '<td>'+ seller +'</td>';
       rows += '<td>'+ pending +'</td>';
       rows += '</tr>';

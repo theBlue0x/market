@@ -39,8 +39,8 @@ function checkLogin() {
                     <table class="display table table-bordered table-striped" id="example">
                       <thead>
                         <tr>
-                          <th><span data-i18n="item_id">Item ID</span></th>
                           <th><span data-i18n="item_title">Item Title</span></th>
+                          <th><span data-i18n="item_id">Item ID</span></th>
                         </tr>
                       </thead>
                       <tbody id="table_body"></tbody>
@@ -76,8 +76,8 @@ function checkLogin() {
       var id = request.purchases[i].goods;
       var rows;
       rows += '<tr>';
-      rows += '<td><a href=\'ViewYourItemExpired.html?setLng=' + fmlang + '&itemid=' + id + '&purchaseid=' + purchaseID + '\'>' + id + '</a></td>';
       rows += '<td><a href=\'ViewYourItemExpired.html?setLng=' + fmlang + '&itemid=' + id + '&purchaseid=' + purchaseID + '\'>' + escapeHtml(pending.name) + '</a></td>';
+      rows += '<td><a href=\'ViewYourItemExpired.html?setLng=' + fmlang + '&itemid=' + id + '&purchaseid=' + purchaseID + '\'>' + id + '</a></td>';
       rows += '</tr>';
     };
     $("#table_body").html(rows);

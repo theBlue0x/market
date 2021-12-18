@@ -44,8 +44,8 @@ function checkLogin() {
                     <table class="display table table-bordered table-striped" id="example">
                       <thead>
                         <tr>
-                          <th class="hidden-phone"><span data-i18n="item_id">Item ID</span></th>
                           <th><span data-i18n="item_title">Item Title</span></th>
+                          <th class="hidden-phone"><span data-i18n="item_id">Item ID</span></th>
                           <th><span data-i18n="buyer_id">Buyer ID</span></th>
                         </tr>
                       </thead>
@@ -83,8 +83,8 @@ function checkLogin() {
       var buyer = request.purchases[i].sellerRS;
       var rows;
       rows += '<tr>';
-      rows += '<td class="hidden-phone"><a href=\'ViewYourItemSold.html?setLng=' + fmlang + '&itemid=' + id + '\'>' +id+ '</a></td>';
       rows += '<td><a href=\'ViewYourItemSold.html?setLng=' + fmlang + '&itemid=' + id + '\'>' +escapeHtml(purchases.name)+'</a></td>';
+      rows += '<td class="hidden-phone"><a href=\'ViewYourItemSold.html?setLng=' + fmlang + '&itemid=' + id + '\'>' +id+ '</a></td>';
       rows += '<td>'+ buyer +'</td>';
       rows += '</tr>';
     };
