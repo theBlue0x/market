@@ -34,7 +34,7 @@ document.write("<li class=\"dropdown\">");
 document.write("<a data-toggle=\"dropdown\" data-hover=\"dropdown\" class=\"dropdown-toggle\" href=\"#\"><span data-i18n=\"menu_send\">Send</span> <b class=\" fa fa-angle-down\"></b></a>");
 document.write("<ul class=\"dropdown-menu\">");
 document.write("<li><a id=\"sendblx_link\" href=\"sendBLX.html?setLng=en\"><span data-i18n=\"sendblx_link\">Send BLX</span></a></li>");
-document.write("<li><a id=\"sendcur_link\" href=\"callCurrency.html?setLng=en\"><span data-i18n=\"sendcur_link\">Send Currency</span></a></li>");
+document.write("<li><a id=\"sendcur_link\" href=\"sendCurrency.html?setLng=en\"><span data-i18n=\"sendcur_link\">Send Currency</span></a></li>");
 document.write("</ul>");
 document.write("</li>");
 document.write("<li class=\"dropdown\">");
