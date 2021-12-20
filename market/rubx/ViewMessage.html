@@ -25,7 +25,7 @@
         secretPhrase: $("#secretPhrase").val()
       },
       function(request) {
-        for (var i = 0; i < request.prunableMessages.length ; i++) {
+        for(i = request.prunableMessages.length - 1; i >= 0; i--) {
         var data = request.prunableMessages[i].decryptedMessage;
         var sentFrom = request.prunableMessages[i].senderRS;
         var recipient = request.prunableMessages[i].recipientRS;

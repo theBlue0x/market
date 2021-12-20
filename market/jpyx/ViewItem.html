@@ -638,7 +638,7 @@ docReady(function() {
                                 <button data-dismiss="modal" class="btn btn-secondary" type="button">Close</button>&nbsp;
                                 <button data-dismiss="modal" class="btn btn-default" type="button" onclick="purchase()">Confirm</button>
                             </div>
-                             <p>The network fee of this transaction is 2 BLX.</p>
+                             <p>The network fee of this transaction is 0.2 BLX.</p>
                             </div>
                           </div>
                         </div>
@@ -768,15 +768,13 @@ docReady(function() {
     },
       function(request){
         var deliveryTime = request.time + 259200;
-        sessionStorage.setItem("futureTime", deliveryTime);
-      });
     $.post(Constants.apiUrl, {
       requestType: 'dgsPurchase',
       secretPhrase: $("#secret_phrase").val(),
       goods: listingid,
       priceNQT: 1000000,
       quantity: 1,
-      deliveryDeadlineTimestamp: sessionStorage.getItem("futureTime"),
+      deliveryDeadlineTimestamp: deliveryTime,
       feeNQT: 1000000,
       deadline: 60
       },
@@ -795,7 +793,7 @@ docReady(function() {
           var purchase_failure = $.t("purchase_failure");
           document.getElementById("listingResult").innerHTML = purchase_failure + "<b> " + errorDescription + "</b>";
           };
-      },"json");
+      },"json")});
     $.post(Constants.apiUrl,{
       requestType: 'transferCurrency',
       recipient: recipient,
