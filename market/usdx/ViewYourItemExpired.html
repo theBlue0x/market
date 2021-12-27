@@ -62,26 +62,18 @@
           main_image_url = "Yes";
         }
         if (main_image_url) {
-          // If there is a main_image_url, check it
-          // Clean the main image URL using validator.min.js
           if (validator.isURL(message.i)) {
-            // Field is a URL
-            // Now check to make sure the URL is for an image
             var Extension = message.i.substring(message.i.lastIndexOf('.') + 1).toLowerCase();
             if (Extension == "gif" || Extension == "png" || Extension == "jpeg" || Extension == "jpg") {
-              // Valid image extension
               var main_image_url = escapeHtml(message.i);
             } else {
-              // URL is not for an image file
               var main_image_url = "../img/Box-icon.png";
             }
           } else {
-            // Field is not a valid URL
             var main_image_url = "../img/Box-icon.png";
           }
-          // Add the image to the page
           document.getElementById("top_image").innerHTML = '<a id="previewMainImageLink" class="fancybox" rel="group" href="' + main_image_url + '"><img alt="" src="' + main_image_url + '"></a>';
-        } // End of if (main_image_url)
+        } 
         });
         var cities = {   
         "aub":  " Auburn, Alabama ",
