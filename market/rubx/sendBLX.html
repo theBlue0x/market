@@ -33,12 +33,12 @@
       var processingText = $.t("button_processing");
       document.getElementById("callNxtButtonSection").innerHTML = "<button type=\"button\" id=\"sellButton1\" class=\"btn btn-default\"><i class=\"fa fa-refresh fa-spin\"></i> &nbsp;" + processingText + "</button>";
       $.post(Constants.apiUrl, {
-          "requestType": "sendMoney",
-          "secretPhrase": $('#secretPhrase').val(),
-          "recipient": $('#destinationAddress').val(),
-          "amountNQT": amount,
-          "feeNQT": "100000000",
-          "deadline": "60"
+          requestType: "sendMoney",
+          secretPhrase: $('#secretPhrase').val(),
+          recipient: $('#destinationAddress').val(),
+          amountNQT: amount,
+          feeNQT: 1000000,
+          deadline: 60
         },
       function(result) {
         var transactionNumber = result.transaction;
