@@ -36,7 +36,7 @@ function checkLogin() {
       sessionStorage.removeItem("title");
       sessionStorage.removeItem("price");
       sessionStorage.removeItem("previous");
-      sessionStorage.removeItem(recipient);
+      sessionStorage.removeItem("recipient");
       sessionStorage.setItem("loginStatus", "notloggedin");
       var fmlang = localStorage.getItem("fmlang");
       window.location.assign("login.html?setLng=" + fmlang);

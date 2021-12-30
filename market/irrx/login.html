@@ -33,7 +33,7 @@
           if (result.errorDescription == 'Unknown account') { 
             document.getElementById("user_entered_account_numberErrorMessage").innerHTML = "<p class=\"validation_message\">New or invalid BLX account.  New BLX accounts must first make an outgoing transaction from the Blue0x wallet.</p>";
             } else {
-            var balance = result.balanceNQT / 100000000;
+            var balance = result.unconfirmedBalanceNQT / 100000000;
             sessionStorage.setItem("accountRS", result.accountRS);
             sessionStorage.setItem("accountBalance", balance);
             var replace_loginResult = '';
@@ -66,8 +66,8 @@
             replace_IRRXAccountBalance += '<a class="btn btn-default" href="ViewAll.html" role="button">View Items</a>&nbsp;&nbsp;<a class="btn btn-default" href="account_details.html" role="button">My Account</a>';
             document.getElementById("IRRXAccountBalance").innerHTML = replace_IRRXAccountBalance;
           } else {
-            var IRRXAccountBalance = coinquery.units;
-            sessionStorage.setItem("IRRXAccountBalance", coinquery.units);
+            var IRRXAccountBalance = coinquery.unconfirmedUnits;
+            sessionStorage.setItem("IRRXAccountBalance", coinquery.unconfirmedUnits);
             var convertedIRRXAccountBalance = IRRXAccountBalance / 100;
             var replace_IRRXAccountBalance = '';
             replace_IRRXAccountBalance += '<div class="media-body">';

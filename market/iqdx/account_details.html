@@ -36,7 +36,7 @@ function checkLogin() {
       sessionStorage.removeItem("title");
       sessionStorage.removeItem("price");
       sessionStorage.removeItem("previous");
-      sessionStorage.removeItem(recipient);
+      sessionStorage.removeItem("recipient");
       sessionStorage.setItem("loginStatus", "notloggedin");
       var fmlang = localStorage.getItem("fmlang");
       window.location.assign("login.html?setLng=" + fmlang);
@@ -54,9 +54,14 @@ function checkLogin() {
       includeEffectiveBalance: "true"
     },
     function(result) {
-    var balance = result.balanceNQT / 100000000;
-    document.getElementById("RSaccount_number").innerHTML = currentRSAccountNumber;
-    document.getElementById("currentAccountBalance").innerHTML = balance.toLocaleString();
+      var total = result.balanceNQT / 100000000;
+      var available = result.unconfirmedBalanceNQT/ 100000000;
+      var rows = ' ';
+          rows += '<p><b>Avail: </b> ' + Number(available).toLocaleString() + ' BLX</p>'; 
+          rows += '<p><b>Total: </b> ' + Number(total).toLocaleString() + ' BLX</p>';
+      document.getElementById("RSaccount_number").innerHTML = currentRSAccountNumber;
+
+      document.getElementById("currentAccountBalance").innerHTML = rows;
     }, "json");
     $.post(Constants.apiUrl, {
       requestType: 'getAccountCurrencies',
@@ -67,10 +72,13 @@ function checkLogin() {
       if (Object.keys(coinquery).length == 0) {
           document.getElementById("IQDXAccountBalance").innerHTML = "0 IQDX";
         } else {
-          var IQDXAccountBalance = coinquery.units;
-          sessionStorage.setItem("IQDXAccountBalance", coinquery.units);
-          var convertedIQDXAccountBalance = IQDXAccountBalance / 100;
-          document.getElementById("IQDXAccountBalance").innerHTML = convertedIQDXAccountBalance.toLocaleString() + " IQDX";
+          var total1 = coinquery.units / 100;
+          var available1 = coinquery.unconfirmedUnits/ 100;
+          var rows1 = ' ';
+              rows1 += '<p><b>Avail: </b> ' + Number(available1).toLocaleString() + ' IQDX</p>'; 
+              rows1 += '<p><b>Total: </b> ' + Number(total1).toLocaleString() + ' IQDX</p>';
+
+          document.getElementById("IQDXAccountBalance").innerHTML = rows1;
         }
       }, "json");
   };
@@ -92,7 +100,7 @@ function checkLogin() {
                   <a class="p-head"><span data-i18n="account_id">Account ID</span></a>
                   <p><span id="RSaccount_number">Account ID</span></p>
                   <a class="p-head"><span >BLX Balance</span></a>
-                  <p><span id="currentAccountBalance">BLX Account Balance</span> BLX</p>
+                  <p><span id="currentAccountBalance">BLX Account Balance</span></p>
                   <a class="p-head"><span >IQDX Balance</span></a>
                   <p><span id="IQDXAccountBalance">Calculating IQDX Balance...</span></p>
                 </div>
