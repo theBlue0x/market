@@ -45,41 +45,12 @@
             replace_loginResult += '<div class="media-body">';
             replace_loginResult += '<a class="p-head">BLX Balance</a>';
             replace_loginResult += '<p>' + balance.toLocaleString() + ' BLX </p>';
-            replace_loginResult += '</div>';
+            replace_loginResult += '</div>'
+            replace_loginResult += '<br/>'
+            replace_loginResult += '<a type="button" class="btn btn-info" href="markets.html">View Markets</a>&nbsp;<a type="button" class="btn btn-info" href="account_details.html">View Account</a>';;
             document.getElementById("loginResult").innerHTML = replace_loginResult;
           }
-        }, "json");
-      $.post(Constants.apiUrl, {
-        requestType: 'getAccountCurrencies',
-        account: currentRSAccountNumber,
-        currency: Constants.IQDXId
-      },
-      function(coinquery) {
-        if (Object.keys(coinquery).length == 0) {
-            sessionStorage.setItem("IQDXAccountBalance", "0 IQDX");
-            var replace_IQDXAccountBalance = '';
-            replace_IQDXAccountBalance += '<div class="media-body">';
-            replace_IQDXAccountBalance += '<a class="p-head">IQDX Balance</a>';
-            replace_IQDXAccountBalance += '<p>0 IQDX</p>';
-            replace_IQDXAccountBalance += '</div>';
-            replace_IQDXAccountBalance += '</br>';
-            replace_IQDXAccountBalance += '<a class="btn btn-default" href="ViewAll.html" role="button">View Items</a>&nbsp;&nbsp;<a class="btn btn-default" href="account_details.html" role="button">My Account</a>';
-            document.getElementById("IQDXAccountBalance").innerHTML = replace_IQDXAccountBalance;
-          } else {
-            var IQDXAccountBalance = coinquery.unconfirmedUnits;
-            sessionStorage.setItem("IQDXAccountBalance", coinquery.unconfirmedUnits);
-            var convertedIQDXAccountBalance = IQDXAccountBalance / 100;
-            var replace_IQDXAccountBalance = '';
-            replace_IQDXAccountBalance += '<div class="media-body">';
-            replace_IQDXAccountBalance += '<a class="p-head">IQDX Balance</a>';
-            replace_IQDXAccountBalance += '<p>' + convertedIQDXAccountBalance.toLocaleString() + ' IQDX</p>';
-            replace_IQDXAccountBalance += '</div>';
-            replace_IQDXAccountBalance += '</br>';
-            replace_IQDXAccountBalance += '<a class="btn btn-default" href="ViewAll.html" role="button">View Items</a>&nbsp;&nbsp;<a class="btn btn-default" href="account_details.html" role="button">My Account</a>';
-            document.getElementById("IQDXAccountBalance").innerHTML = replace_IQDXAccountBalance;
-          }
-        }, "json");
-    }};
+        }, "json")}}
 </script>
 <script>
   function loadAccountInfo() {
@@ -112,14 +83,9 @@
                     </div>
                   </div>
                   <div id="loginButtonSection">
-                    <button type="button" id="loginButton" class="btn btn-default" onclick="login();">
-                      <div id="loginButtonText"></div>
-                    </button>
+                    <button type="button" id="loginButton" class="btn btn-info" onclick="login();">Login</button>
                   </div>
                 </div>
-                <div id="IQDXAccountBalance">
-                </div>
-              </div>
             </section>
           </div>
         </div>

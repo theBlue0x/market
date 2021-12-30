@@ -45,41 +45,12 @@
             replace_loginResult += '<div class="media-body">';
             replace_loginResult += '<a class="p-head">BLX Balance</a>';
             replace_loginResult += '<p>' + balance.toLocaleString() + ' BLX </p>';
-            replace_loginResult += '</div>';
+            replace_loginResult += '</div>'
+            replace_loginResult += '<br/>'
+            replace_loginResult += '<a type="button" class="btn btn-info" href="markets.html">View Markets</a>&nbsp;<a type="button" class="btn btn-info" href="account_details.html">View Account</a>';;
             document.getElementById("loginResult").innerHTML = replace_loginResult;
           }
-        }, "json");
-      $.post(Constants.apiUrl, {
-        requestType: 'getAccountCurrencies',
-        account: currentRSAccountNumber,
-        currency: Constants.JPYXId
-      },
-      function(coinquery) {
-        if (Object.keys(coinquery).length == 0) {
-            sessionStorage.setItem("JPYXAccountBalance", "0 JPYX");
-            var replace_JPYXAccountBalance = '';
-            replace_JPYXAccountBalance += '<div class="media-body">';
-            replace_JPYXAccountBalance += '<a class="p-head">JPYX Balance</a>';
-            replace_JPYXAccountBalance += '<p>0 JPYX</p>';
-            replace_JPYXAccountBalance += '</div>';
-            replace_JPYXAccountBalance += '</br>';
-            replace_JPYXAccountBalance += '<a class="btn btn-default" href="ViewAll.html" role="button">View Items</a>&nbsp;&nbsp;<a class="btn btn-default" href="account_details.html" role="button">My Account</a>';
-            document.getElementById("JPYXAccountBalance").innerHTML = replace_JPYXAccountBalance;
-          } else {
-            var JPYXAccountBalance = coinquery.unconfirmedUnits;
-            sessionStorage.setItem("JPYXAccountBalance", coinquery.unconfirmedUnits);
-            var convertedJPYXAccountBalance = JPYXAccountBalance / 100;
-            var replace_JPYXAccountBalance = '';
-            replace_JPYXAccountBalance += '<div class="media-body">';
-            replace_JPYXAccountBalance += '<a class="p-head">JPYX Balance</a>';
-            replace_JPYXAccountBalance += '<p>' + convertedJPYXAccountBalance.toLocaleString() + ' JPYX</p>';
-            replace_JPYXAccountBalance += '</div>';
-            replace_JPYXAccountBalance += '</br>';
-            replace_JPYXAccountBalance += '<a class="btn btn-default" href="ViewAll.html" role="button">View Items</a>&nbsp;&nbsp;<a class="btn btn-default" href="account_details.html" role="button">My Account</a>';
-            document.getElementById("JPYXAccountBalance").innerHTML = replace_JPYXAccountBalance;
-          }
-        }, "json");
-    }};
+        }, "json")}}
 </script>
 <script>
   function loadAccountInfo() {
@@ -112,14 +83,9 @@
                     </div>
                   </div>
                   <div id="loginButtonSection">
-                    <button type="button" id="loginButton" class="btn btn-default" onclick="login();">
-                      <div id="loginButtonText"></div>
-                    </button>
+                    <button type="button" id="loginButton" class="btn btn-info" onclick="login();">Login</button>
                   </div>
                 </div>
-                <div id="JPYXAccountBalance">
-                </div>
-              </div>
             </section>
           </div>
         </div>

@@ -45,41 +45,12 @@
             replace_loginResult += '<div class="media-body">';
             replace_loginResult += '<a class="p-head">BLX Balance</a>';
             replace_loginResult += '<p>' + balance.toLocaleString() + ' BLX </p>';
-            replace_loginResult += '</div>';
+            replace_loginResult += '</div>'
+            replace_loginResult += '<br/>'
+            replace_loginResult += '<a type="button" class="btn btn-info" href="markets.html">View Markets</a>&nbsp;<a type="button" class="btn btn-info" href="account_details.html">View Account</a>';;
             document.getElementById("loginResult").innerHTML = replace_loginResult;
           }
-        }, "json");
-      $.post(Constants.apiUrl, {
-        requestType: 'getAccountCurrencies',
-        account: currentRSAccountNumber,
-        currency: Constants.EURXId
-      },
-      function(coinquery) {
-        if (Object.keys(coinquery).length == 0) {
-            sessionStorage.setItem("EURXAccountBalance", "0 EURX");
-            var replace_EURXAccountBalance = '';
-            replace_EURXAccountBalance += '<div class="media-body">';
-            replace_EURXAccountBalance += '<a class="p-head">EURX Balance</a>';
-            replace_EURXAccountBalance += '<p>0 EURX</p>';
-            replace_EURXAccountBalance += '</div>';
-            replace_EURXAccountBalance += '</br>';
-            replace_EURXAccountBalance += '<a class="btn btn-default" href="ViewAll.html" role="button">View Items</a>&nbsp;&nbsp;<a class="btn btn-default" href="account_details.html" role="button">My Account</a>';
-            document.getElementById("EURXAccountBalance").innerHTML = replace_EURXAccountBalance;
-          } else {
-            var EURXAccountBalance = coinquery.unconfirmedUnits;
-            sessionStorage.setItem("EURXAccountBalance", coinquery.unconfirmedUnits);
-            var convertedEURXAccountBalance = EURXAccountBalance / 100;
-            var replace_EURXAccountBalance = '';
-            replace_EURXAccountBalance += '<div class="media-body">';
-            replace_EURXAccountBalance += '<a class="p-head">EURX Balance</a>';
-            replace_EURXAccountBalance += '<p>' + convertedEURXAccountBalance.toLocaleString() + ' EURX</p>';
-            replace_EURXAccountBalance += '</div>';
-            replace_EURXAccountBalance += '</br>';
-            replace_EURXAccountBalance += '<a class="btn btn-default" href="ViewAll.html" role="button">View Items</a>&nbsp;&nbsp;<a class="btn btn-default" href="account_details.html" role="button">My Account</a>';
-            document.getElementById("EURXAccountBalance").innerHTML = replace_EURXAccountBalance;
-          }
-        }, "json");
-    }};
+        }, "json")}}
 </script>
 <script>
   function loadAccountInfo() {
@@ -112,14 +83,9 @@
                     </div>
                   </div>
                   <div id="loginButtonSection">
-                    <button type="button" id="loginButton" class="btn btn-default" onclick="login();">
-                      <div id="loginButtonText"></div>
-                    </button>
+                    <button type="button" id="loginButton" class="btn btn-info" onclick="login();">Login</button>
                   </div>
                 </div>
-                <div id="EURXAccountBalance">
-                </div>
-              </div>
             </section>
           </div>
         </div>

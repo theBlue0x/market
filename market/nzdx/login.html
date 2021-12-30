@@ -45,41 +45,12 @@
             replace_loginResult += '<div class="media-body">';
             replace_loginResult += '<a class="p-head">BLX Balance</a>';
             replace_loginResult += '<p>' + balance.toLocaleString() + ' BLX </p>';
-            replace_loginResult += '</div>';
+            replace_loginResult += '</div>'
+            replace_loginResult += '<br/>'
+            replace_loginResult += '<a type="button" class="btn btn-info" href="markets.html">View Markets</a>&nbsp;<a type="button" class="btn btn-info" href="account_details.html">View Account</a>';;
             document.getElementById("loginResult").innerHTML = replace_loginResult;
           }
-        }, "json");
-      $.post(Constants.apiUrl, {
-        requestType: 'getAccountCurrencies',
-        account: currentRSAccountNumber,
-        currency: Constants.NZDXId
-      },
-      function(coinquery) {
-        if (Object.keys(coinquery).length == 0) {
-            sessionStorage.setItem("NZDXAccountBalance", "0 NZDX");
-            var replace_NZDXAccountBalance = '';
-            replace_NZDXAccountBalance += '<div class="media-body">';
-            replace_NZDXAccountBalance += '<a class="p-head">NZDX Balance</a>';
-            replace_NZDXAccountBalance += '<p>0 NZDX</p>';
-            replace_NZDXAccountBalance += '</div>';
-            replace_NZDXAccountBalance += '</br>';
-            replace_NZDXAccountBalance += '<a class="btn btn-default" href="ViewAll.html" role="button">View Items</a>&nbsp;&nbsp;<a class="btn btn-default" href="account_details.html" role="button">My Account</a>';
-            document.getElementById("NZDXAccountBalance").innerHTML = replace_NZDXAccountBalance;
-          } else {
-            var NZDXAccountBalance = coinquery.unconfirmedUnits;
-            sessionStorage.setItem("NZDXAccountBalance", coinquery.unconfirmedUnits);
-            var convertedNZDXAccountBalance = NZDXAccountBalance / 100;
-            var replace_NZDXAccountBalance = '';
-            replace_NZDXAccountBalance += '<div class="media-body">';
-            replace_NZDXAccountBalance += '<a class="p-head">NZDX Balance</a>';
-            replace_NZDXAccountBalance += '<p>' + convertedNZDXAccountBalance.toLocaleString() + ' NZDX</p>';
-            replace_NZDXAccountBalance += '</div>';
-            replace_NZDXAccountBalance += '</br>';
-            replace_NZDXAccountBalance += '<a class="btn btn-default" href="ViewAll.html" role="button">View Items</a>&nbsp;&nbsp;<a class="btn btn-default" href="account_details.html" role="button">My Account</a>';
-            document.getElementById("NZDXAccountBalance").innerHTML = replace_NZDXAccountBalance;
-          }
-        }, "json");
-    }};
+        }, "json")}}
 </script>
 <script>
   function loadAccountInfo() {
@@ -112,14 +83,9 @@
                     </div>
                   </div>
                   <div id="loginButtonSection">
-                    <button type="button" id="loginButton" class="btn btn-default" onclick="login();">
-                      <div id="loginButtonText"></div>
-                    </button>
+                    <button type="button" id="loginButton" class="btn btn-info" onclick="login();">Login</button>
                   </div>
                 </div>
-                <div id="NZDXAccountBalance">
-                </div>
-              </div>
             </section>
           </div>
         </div>

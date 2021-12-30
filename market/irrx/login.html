@@ -45,41 +45,12 @@
             replace_loginResult += '<div class="media-body">';
             replace_loginResult += '<a class="p-head">BLX Balance</a>';
             replace_loginResult += '<p>' + balance.toLocaleString() + ' BLX </p>';
-            replace_loginResult += '</div>';
+            replace_loginResult += '</div>'
+            replace_loginResult += '<br/>'
+            replace_loginResult += '<a type="button" class="btn btn-info" href="markets.html">View Markets</a>&nbsp;<a type="button" class="btn btn-info" href="account_details.html">View Account</a>';;
             document.getElementById("loginResult").innerHTML = replace_loginResult;
           }
-        }, "json");
-      $.post(Constants.apiUrl, {
-        requestType: 'getAccountCurrencies',
-        account: currentRSAccountNumber,
-        currency: Constants.IRRXId
-      },
-      function(coinquery) {
-        if (Object.keys(coinquery).length == 0) {
-            sessionStorage.setItem("IRRXAccountBalance", "0 IRRX");
-            var replace_IRRXAccountBalance = '';
-            replace_IRRXAccountBalance += '<div class="media-body">';
-            replace_IRRXAccountBalance += '<a class="p-head">IRRX Balance</a>';
-            replace_IRRXAccountBalance += '<p>0 IRRX</p>';
-            replace_IRRXAccountBalance += '</div>';
-            replace_IRRXAccountBalance += '</br>';
-            replace_IRRXAccountBalance += '<a class="btn btn-default" href="ViewAll.html" role="button">View Items</a>&nbsp;&nbsp;<a class="btn btn-default" href="account_details.html" role="button">My Account</a>';
-            document.getElementById("IRRXAccountBalance").innerHTML = replace_IRRXAccountBalance;
-          } else {
-            var IRRXAccountBalance = coinquery.unconfirmedUnits;
-            sessionStorage.setItem("IRRXAccountBalance", coinquery.unconfirmedUnits);
-            var convertedIRRXAccountBalance = IRRXAccountBalance / 100;
-            var replace_IRRXAccountBalance = '';
-            replace_IRRXAccountBalance += '<div class="media-body">';
-            replace_IRRXAccountBalance += '<a class="p-head">IRRX Balance</a>';
-            replace_IRRXAccountBalance += '<p>' + convertedIRRXAccountBalance.toLocaleString() + ' IRRX</p>';
-            replace_IRRXAccountBalance += '</div>';
-            replace_IRRXAccountBalance += '</br>';
-            replace_IRRXAccountBalance += '<a class="btn btn-default" href="ViewAll.html" role="button">View Items</a>&nbsp;&nbsp;<a class="btn btn-default" href="account_details.html" role="button">My Account</a>';
-            document.getElementById("IRRXAccountBalance").innerHTML = replace_IRRXAccountBalance;
-          }
-        }, "json");
-    }};
+        }, "json")}}
 </script>
 <script>
   function loadAccountInfo() {
@@ -112,14 +83,9 @@
                     </div>
                   </div>
                   <div id="loginButtonSection">
-                    <button type="button" id="loginButton" class="btn btn-default" onclick="login();">
-                      <div id="loginButtonText"></div>
-                    </button>
+                    <button type="button" id="loginButton" class="btn btn-info" onclick="login();">Login</button>
                   </div>
                 </div>
-                <div id="IRRXAccountBalance">
-                </div>
-              </div>
             </section>
           </div>
         </div>
