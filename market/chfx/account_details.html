@@ -59,7 +59,7 @@ function checkLogin() {
       var rows = ' ';
           rows += '<p><b>Avail: </b> ' + Number(available).toLocaleString() + ' BLX</p>'; 
           rows += '<p><b>Total: </b> ' + Number(total).toLocaleString() + ' BLX</p>';
-      document.getElementById("RSaccount_number").innerHTML = currentRSAccountNumber;
+      document.getElementById("RSaccount_number").innerHTML = '<b>' + currentRSAccountNumber + '</b>';
 
       document.getElementById("currentAccountBalance").innerHTML = rows;
     }, "json");

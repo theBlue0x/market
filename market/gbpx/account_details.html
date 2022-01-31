@@ -55,7 +55,7 @@ function checkLogin() {
     },
     function(result) {
     var balance = result.balanceNQT / 100000000;
-    document.getElementById("RSaccount_number").innerHTML = currentRSAccountNumber;
+    document.getElementById("RSaccount_number").innerHTML = '<b>' + currentRSAccountNumber + '</b>';
     document.getElementById("currentAccountBalance").innerHTML = balance.toLocaleString();
     }, "json");
     $.post(Constants.apiUrl, {
