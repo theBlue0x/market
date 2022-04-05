@@ -1,0 +1,24 @@
+document.write("");
+
+document.write("<!--header start-->");
+document.write("<header class=\"header white-bg\">");
+document.write("<div class=\"navbar-header white-bg\">");
+document.write("<button type=\"button\" class=\"navbar-toggle\" data-toggle=\"collapse\" data-target=\".navbar-collapse\">");
+document.write("<span class=\"fa fa-bars\"></span>");
+document.write("</button>");
+document.write("<!--logo start-->");
+document.write("<a id=\"logo_link\" href=\"https://market.blue0x.com\" class=\"logo\">Blue0x|<span>Market</span></a>");
+document.write("<!--logo end-->");
+document.write("<div class=\"horizontal-menu navbar-collapse collapse\">");
+document.write("<ul class=\"nav navbar-nav\">");
+document.write("<li class=\"dropdown\">");
+document.write("<a href=\"https://market.blue0x.com\">Home</span></a>");
+document.write("<ul class=\"dropdown-menu\">");
+document.write("<li><a id=\"view_all_link\" href=\"ViewAll.html?setLng=en\"><span data-i18n=\"menu_view_all\">View All Items</span></a></li>");
+document.write("<li><a id=\"search_location_link\" href=\"SearchByLocation.html?setLng=en\">Search by Location</span></a></li>");
+document.write("<li><a id=\"search_category_link\" href=\"SearchByCategory.html?setLng=en\"><span data-i18n=\"menu_search_category\">Search by Category</span></a></li>");
+document.write("</ul>");
+document.write("</li>");
+document.write("</div>");
+document.write("</header>");
+document.write("<!--header end-->");
