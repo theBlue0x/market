@@ -29,7 +29,7 @@
       document.getElementById("destinationAddressErrorMessage").innerHTML = "";
       document.getElementById("secretPhraseErrorMessage").innerHTML = "<p class=\"validation_message\">Your secret phrase is required.</p>";
     } else {
-      var amount = $('#amount').val();
+      var amount = $('#amount').val() * 100;
       var processingText = $.t("button_processing");
       document.getElementById("callNxtButtonSection").innerHTML = "<button type=\"button\" id=\"sellButton1\" class=\"btn btn-default\"><i class=\"fa fa-refresh fa-spin\"></i> &nbsp;" + processingText + "</button>";
       $.post(Constants.apiUrl, {
