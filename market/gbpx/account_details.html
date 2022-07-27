@@ -54,9 +54,14 @@ function checkLogin() {
       includeEffectiveBalance: "true"
     },
     function(result) {
-    var balance = result.balanceNQT / 100000000;
-    document.getElementById("RSaccount_number").innerHTML = '<b>' + currentRSAccountNumber + '</b>';
-    document.getElementById("currentAccountBalance").innerHTML = balance.toLocaleString();
+      var total = result.balanceNQT / 100000000;
+      var available = result.unconfirmedBalanceNQT/ 100000000;
+      var rows = ' ';
+          rows += '<p><b>Avail: </b> ' + Number(available).toLocaleString() + ' BLX</p>'; 
+          rows += '<p><b>Total: </b> ' + Number(total).toLocaleString() + ' BLX</p>';
+      document.getElementById("RSaccount_number").innerHTML = '<b>' + currentRSAccountNumber + '</b>';
+
+      document.getElementById("currentAccountBalance").innerHTML = rows;
     }, "json");
     $.post(Constants.apiUrl, {
       requestType: 'getAccountCurrencies',
@@ -67,10 +72,13 @@ function checkLogin() {
       if (Object.keys(coinquery).length == 0) {
           document.getElementById("GBPXAccountBalance").innerHTML = "0 GBPX";
         } else {
-          var GBPXAccountBalance = coinquery.units;
-          sessionStorage.setItem("GBPXAccountBalance", coinquery.units);
-          var convertedGBPXAccountBalance = GBPXAccountBalance / 100;
-          document.getElementById("GBPXAccountBalance").innerHTML = convertedGBPXAccountBalance.toLocaleString() + " GBPX";
+          var total1 = coinquery.units / 100;
+          var available1 = coinquery.unconfirmedUnits/ 100;
+          var rows1 = ' ';
+              rows1 += '<p><b>Avail: </b> ' + Number(available1).toLocaleString() + ' GBPX</p>'; 
+              rows1 += '<p><b>Total: </b> ' + Number(total1).toLocaleString() + ' GBPX</p>';
+
+          document.getElementById("GBPXAccountBalance").innerHTML = rows1;
         }
       }, "json");
   };
@@ -92,7 +100,7 @@ function checkLogin() {
                   <p class="p-head"><span data-i18n="account_id">Account ID</span></p>
                   <p><span id="RSaccount_number">Account ID</span></p>
                   <p class="p-head"><span >BLX Balance</span></p>
-                  <p><span id="currentAccountBalance">BLX Account Balance</span> BLX</p>
+                  <p><span id="currentAccountBalance">BLX Account Balance</span></p>
                   <p class="p-head"><span >GBPX Balance</span></p>
                   <p><span id="GBPXAccountBalance">Calculating GBPX Balance...</span></p>
                 </div>
